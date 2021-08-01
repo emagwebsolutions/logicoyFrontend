@@ -1,0 +1,162 @@
+:root{
+    font-size: 62.5%;
+    --light-color: #fff;
+    --medium-color: #ff7900;
+    --dark-color: rgba(66,28,82);
+    --slider-height: 60rem;
+    scroll-behavior: smooth;
+}
+body{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    color: #000!important;
+    background-color: #f0f2f5;
+}
+img{
+    width: 100%;
+    display: block;
+}
+.login-bg{
+    background-image: url("./imgs/bg.jpg");
+    background-size: cover;
+    height: 66rem;
+}
+
+.login-bx{
+    margin-left: auto!important;
+    margin-right: auto!important;
+
+    margin-top: 20rem;
+}
+
+.lost-password{
+    font-size: 1.2rem!important;
+    display: block; 
+    margin-top: 1.4rem;
+    margin-bottom: 1.4rem;
+}
+
+.login-btn{
+    padding: .5rem!important;
+    border-radius: 5rem;
+    font-size: 1.2rem;
+}
+
+.logo{
+    height: 7rem;
+    width: 16rem;
+}
+
+.logo2{
+    height: 7rem;
+    width: 16rem;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+}
+
+.nav-link{
+    margin-right: 3rem;
+}
+
+.opt{
+    margin-right: 10rem;
+} 
+
+.opt-text{
+    font-size: 1.3rem!important;
+}
+
+.stat-bx{
+    padding: 2rem;
+    border-radius: 1.5rem;
+    margin-top: 3rem;
+}
+
+.stat-height{
+    height: 26rem;
+}
+.htitle{
+    border-radius: 2rem; 
+    padding: .4rem;
+    text-align: center;
+    color: #000;
+    background-color: #ccc;
+    
+}
+
+.flabl{
+    font-size: 1.2rem!important;
+
+}
+.finpt{
+    padding: 1.2rem!important;
+    border-radius: 4rem!important;
+    color: #000!important;
+}
+
+.modalpadding{
+    padding: 5rem!important;
+}
+.transporters-scroll{
+height: 58rem;
+overflow-y: scroll;
+padding: 1rem;
+font-size: 1.1rem;
+}
+
+.transporter-details{
+    font-size: 1.2rem;
+    border: 1px #fff solid!important;
+}
+
+
+
+.scrollY{
+    height: 50rem;
+    overflow-y: scroll;
+}
+.scrollTrans{
+    height: 35rem;
+    overflow-y: scroll;
+}
+.nav-link{
+    font-size: 1.2rem;
+    color:#000!important;
+}
+.activitybx{
+    height: 23rem;
+    overflow-y: scroll;
+    width: 100%;
+    margin-left: 1.3rem;
+    margin-right: 1.3rem;
+}
+.activityinner{
+    border-bottom: solid 1px #ccc;
+    padding: 1rem;
+}
+
+.activityinner p{
+    margin-bottom: .3rem!important;
+}
+
+
+.chartbx{
+    height: 23rem;
+    width: 100%;
+    margin-left: 1.3rem;
+    margin-right: 1.3rem;
+}
+
+.waybillTb{
+    height: 23rem;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+
+
+@media(max-width: 767px){
+    body{
+        font-size: 1rem;
+    }
+}
