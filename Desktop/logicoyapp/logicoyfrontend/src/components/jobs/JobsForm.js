@@ -2,6 +2,7 @@ import React,{useReducer} from 'react'
 import {Form,Col,Row,Modal,Button} from 'react-bootstrap'
 import useJobslogic from './logic/useJobslogic'
 import {useSelector} from 'react-redux'
+import Select from 'react-select'
 
 function reducer(state,action){
   return {...state, [action.name] : action.value}
@@ -18,10 +19,15 @@ export default function JobsForm(props){
     const {addjob,err} = useJobslogic()
       function onchange(e){
         const {name,value} = e.target
-    
         dispatch({name,value})
       }
 
+      function selectOnchange(val,action){
+        const name = action.name
+        const value = val.value
+        dispatch({name,value})
+      }
+      console.log(state)
  
 
       function addJobs(){
@@ -38,7 +44,20 @@ export default function JobsForm(props){
         addjob(st)
       }
 
-    
+      const options = [
+        { value: 'Accra', label: 'Accra' },
+        { value: 'Kumasi', label: 'Kumasi' },
+        { value: 'Takoradi', label: 'Takoradi' },
+        { value: 'Sunyani', label: 'Sunyani' },
+        { value: 'Tamale', label: 'Tamale' },
+        { value: 'Wa', label: 'Wa' },
+        { value: 'Bolga', label: 'Bolga' },
+        { value: 'Koforidua', label: 'Koforidua' },
+        { value: 'Capecoast', label: 'Capecoast' }
+      ]
+
+
+
       return (
         <>
         <Modal
@@ -76,23 +95,8 @@ export default function JobsForm(props){
             <Form.Label className="flabl">Bags/Tonnage Loaded</Form.Label>
             <Form.Control  name="bags" onChange = {onchange}  className="finpt" type="text" placeholder="Bags/Tonnage Loaded" />
             </Form.Group>
-  
-            <Form.Group className="mb-3">
-            <Form.Label className="flabl">Destination</Form.Label>
-            <Form.Control  name="destination" onChange = {onchange} as="select" className="mb-3">
-            <option value="Accra">Accra</option>
-            <option value="Kumasi">Kumasi</option>
-            <option value="Takoradi">Takoradi</option>
-            <option value="Sunyani">Sunyani</option>
-            <option value="Tamale">Tamale</option>
-            <option value="Wa">Wa</option>
-            <option value="Bolgatanga">Bolgatanga</option>
-            <option value="Koforidua">Koforidua</option>
-            <option value="Cape Coast">Cape Coast</option>
-            </Form.Control>
-            </Form.Group>
 
-
+          <Select options={options} name="destination" onChange={selectOnchange} />
 
             <Form.Group className="mb-3">
             <Form.Label className="flabl">Truck Number</Form.Label>
