@@ -48,7 +48,9 @@ export default function Driver(){
             if(v._id === id){
                 return v
             }
-            return true
+            else{
+                return ''
+            }
         })
          setsingledriver({...dd[0]})
         esetModalShow(true)
@@ -94,7 +96,9 @@ export default function Driver(){
                 </React.Fragment>
             )
         }
-        return true
+        else{
+            return ''
+        }
  
         })
         

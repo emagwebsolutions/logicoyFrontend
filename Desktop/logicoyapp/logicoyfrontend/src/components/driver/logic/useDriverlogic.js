@@ -1,9 +1,25 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import Error from '../../Error'
 import curuser from '../../users/curuser'
+import useData from '../../redux/useData'
 export default function useDriverlogic(){
   const [err,setErr] = useState("")
+  const {DriversData} = useData()
+
+
+  /*----------------------------------
+  *Start DATA INITIALIZATION
+  ----------------------------------*/
+  useEffect(()=>{
+    DriversData()
+  },[])
+/*----------------------------------
+*End DATA INITIALIZATION
+----------------------------------*/
+
+
+
 
   /*----------------------------------
   *Start REGISTER DRIVERS
@@ -19,6 +35,7 @@ export default function useDriverlogic(){
           const {data} = await axios.post("http://localhost:8080/api/public/adddrivers/",{...driver,...creator},config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
+            DriversData()
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -52,6 +69,7 @@ export default function useDriverlogic(){
           const {data} = await axios.put("http://localhost:8080/api/public/editdrivers/",obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
+            DriversData()
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -78,6 +96,7 @@ export default function useDriverlogic(){
       const deleteDriver = async ()=>{
         try{
          await axios.delete("http://localhost:8080/api/public/deletedrivers/"+id)
+         DriversData()
          
         }
         catch(err){

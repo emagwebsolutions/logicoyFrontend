@@ -38,7 +38,9 @@ export default function Approvedwaybills({data}){
                         </tr>
                     )
                     }
-                    return true
+                    else{
+                        return ''
+                    }
                 })
 
             }

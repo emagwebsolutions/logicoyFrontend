@@ -52,7 +52,9 @@ export default function Transporters(){
             if(v._id === id){
                 return v
             }
-            return true
+            else{
+                return ''
+            }
         })
          setsingletransporter({...dd[0]})
         }
@@ -71,11 +73,27 @@ export default function Transporters(){
     const dat = {...datasource}
 
 
+    const cc = useSelector((state)=> state.drivers.alldrivers)
+    const dta = {...cc}
    
 
     function transporterdetails(phone){
 
         setmobilephone(phone)
+
+            const tot = Object.values(dta).filter(v => {
+                if(phone === v.tcontact){
+                    return v.driver
+                }
+                else{
+                    return ''
+                }
+            })
+         
+
+
+
+
 
         const rs = Object.values(dat).map(v => {
             if(v.tcontact === phone){  
@@ -94,14 +112,16 @@ export default function Transporters(){
 
                 <tr>
                 <td>Total Drivers:</td>
-                <td>{}</td>
+                <td>{tot? tot.length : 0}</td>
                 </tr>
 
 
                 </React.Fragment>
             )
         }
-        return true
+        else{
+            return ''
+        }
         })
         
         settransdetails(rs)

@@ -11,4 +11,5 @@ const rootReducer = combineReducers({
     transporters: transportersReducer
 })
 
+
 export default rootReducer

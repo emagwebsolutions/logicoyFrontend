@@ -2,7 +2,7 @@ import axios from 'axios'
 import {useDispatch} from 'react-redux'
 import {fetchallusers,fetchalldrivers,fetchalltransporters,fetchalljobs} from './actions/actions'
 
-export default function Data(){
+export default function useData(){
 
         const dispatch = useDispatch()
 
@@ -89,16 +89,7 @@ export default function Data(){
       *END GET ALL JOBS DATA
       -------------------------------*/
 
-
-        function allData(){
-            UsersDatas()
-            DriversData()
-            TranspData()
-            JobsData()
-        }
-
-
-    return {allData}
+    return {UsersDatas,DriversData,TranspData,JobsData}
 }
 
 

@@ -13,11 +13,9 @@ export default function Transactions(props){
 
 
         <Tabs defaultActiveKey="Waybills" id="uncontrolled-tab-example" className="mb-3">
-
         <Tab eventKey="Waybills"  title="Waybills">
             <Waybills PHONE={props.PHONENUM} />
         </Tab>
-
         </Tabs>
 
     

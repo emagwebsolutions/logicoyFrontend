@@ -8,7 +8,7 @@
 }
 body{
     font-family: 'Quicksand', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #000!important;
     background-color: #f0f2f5;
 }
@@ -20,6 +20,13 @@ img{
     background-image: url("./imgs/bg.jpg");
     background-size: cover;
     height: 66rem;
+}
+input,
+select{
+    font-size: 1.2rem!important;
+}
+select option{
+    padding: 1.6rem 0 1.6rem 0!important;
 }
 
 .login-bx{

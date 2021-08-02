@@ -1,27 +1,44 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import Error from '../../Error'
 import curuser from '../../users/curuser'
+import useData from '../../redux/useData'
 export default function useJobslogic(){
   const [err,setErr] = useState("")
+  const {JobsData} = useData()
+  const {creator} = curuser()
+
+
+
+  /*----------------------------------
+  *Start DATA INITIALIZATION
+  ----------------------------------*/
+  useEffect(()=>{
+    JobsData()
+  },[])
+/*----------------------------------
+*End DATA INITIALIZATION
+----------------------------------*/
+
 
   /*----------------------------------
   *Start REGISTER jobS
   ----------------------------------*/
   const addjob = async (job)=>{
-
-    const {creator} = curuser()
-
+    
         const config = {
           header:{
             "Content-Type": "application/json"
           }
         }
         try{
-          const {data} = await axios.post("http://localhost:8080/api/public/savejobs/",
-          {...job,...creator},config)
+        const obj = {...job,...creator}
+   
+      const {data} = await axios.post("http://localhost:8080/api/public/addjobs/",obj,config)
+          
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
+            JobsData()
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -52,6 +69,7 @@ export default function useJobslogic(){
           const {data} = await axios.put("http://localhost:8080/api/public/editjobs/",obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
+            JobsData()
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -75,6 +93,7 @@ export default function useJobslogic(){
       const deletejob = async ()=>{
         try{
          await axios.delete("http://localhost:8080/api/public/deletejobs/"+id)
+         JobsData()
         }
         catch(err){
           console.log(err.message)

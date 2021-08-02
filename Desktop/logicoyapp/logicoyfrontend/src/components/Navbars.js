@@ -3,14 +3,11 @@ import {Nav,Navbar,Col,Row,Container} from 'react-bootstrap'
 import {Link,useHistory} from 'react-router-dom'
 import Logo from '../imgs/logo.jpg'
 import { FaHouseDamage } from 'react-icons/fa'
-import Data from './redux/Data'
 import curuser from './users/curuser'
 
 export default function Navbars(){
   const {creator} = curuser()
   const history = useHistory()
-  const {allData} = Data()
-  allData()
   if(!localStorage.length){
     history.push('/')
   }

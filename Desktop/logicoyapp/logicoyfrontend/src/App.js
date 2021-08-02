@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './App.css'
 import {Provider} from 'react-redux'
 import Login from './components/Login'
-import {store} from './components/redux/store'
+import {store,persistor} from './components/redux/store'
 import Users from './components/users/Users'
 import Privateroute from './components/Privateroute'
 import Dashboard from './components/dashboards/Dashboard'
@@ -14,10 +14,12 @@ import Driver from './components/driver/Driver'
 import Transporters from './components/transporters/Transporters'
 import Reports from './components/reports/Reports'
 import Profile from './components/users/Profile'
+import { PersistGate } from 'redux-persist/integration/react'
 
 export default function App(){
     return (
             <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
             <HashRouter>
                 <Switch>
                     <Privateroute component={Dashboard} exact path="/dashboard" />
@@ -31,6 +33,7 @@ export default function App(){
                     <Route exact path="/profile" component={Profile} />
                 </Switch>
             </HashRouter>
+            </PersistGate>
             </Provider>
         
     )

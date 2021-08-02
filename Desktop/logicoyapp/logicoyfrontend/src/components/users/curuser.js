@@ -9,7 +9,7 @@ if(localStorage.getItem('userd')){
     createdby: user.fullname,
     creatorphone: user.phone
   }
-  user_id = user.user_id
+  user_id = user._id
 }
 else{
   creator = {

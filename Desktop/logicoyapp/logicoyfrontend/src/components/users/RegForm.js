@@ -12,14 +12,20 @@ export default function RegForm(props){
 const {editUser} = useUserslogic()
 const [err,setErr] = useState("")
 
+
+
      //Get single user by id
      const res = Object.values(props.output).filter(v => {
         if(props.id === v._id){
             return v
         }
-        return true
+        else{
+            return ''
+        }
+        
     })
     const data = {...res[0]}
+
 
     //Get all input value
     const [state,dispatch] = useReducer(reducer,{

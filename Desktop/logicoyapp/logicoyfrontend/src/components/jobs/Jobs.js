@@ -8,25 +8,17 @@ import Transactions from '../shared/Transactions'
 import Tabs from '../shared/Tabs'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {FaTrashAlt, FaRegEdit} from 'react-icons/fa'
 import JobsForm from './JobsForm'
-import JobsEditForm from './JobsEditForm'
-import useJobslogic from './logic/useJobslogic'
 import useSearchHook from '../useSearchHook'
 
 export default function Jobs(){
     const [modalshow, setModalShow] = React.useState(false);
-    const [emodalshow, esetModalShow] = React.useState(false);
-    const [singlejob,setsinglejob] = useState()
-    const datasource = useSelector((state)=> state.jobs.alljobs)
     const datasource2 = useSelector((state)=> state.transporters.alltrans)
     const transports = {...datasource2}
     const {output,searchdatalist} = useSearchHook(datasource2)
 
     const [jobdetails, setjobdetails] = useState()
     const [mobilephone, setmobilephone] = useState()
-   
-    const {deletejobs} = useJobslogic()
     /*-----------------------------
     START JOBS FORM MODAL
     -----------------------------*/
@@ -44,21 +36,8 @@ export default function Jobs(){
     START EDIT JOBS FORM MODAL
     -----------------------------*/
   
-    function esetmodalShow(id){
-        const obj = {...datasource}
-        const dd = Object.values(obj).filter(v => {
-            if(v._id === id){
-                return v
-            }
-            return true
-        })
-         setsinglejob({...dd[0]})
-        esetModalShow(true)
-    }
     
-    function esetmodalhide(){
-        esetModalShow(false)
-    }
+
 
     
     /*-----------------------------
@@ -71,9 +50,17 @@ export default function Jobs(){
     function jobsdetailss(phone){
         setmobilephone(phone)
 
+        const tot = Object.values(dta).filter(v => {
+            if(phone === v.tcontact){
+                return v.driver
+            }
+            else{
+                return ''
+            }
+        })
+     
 
-
-        const rs = Object.values(dta).map(v => {
+        const rs = Object.values(transports).map(v => {
 
             if(v.tcontact === phone ){
             return (
@@ -90,7 +77,7 @@ export default function Jobs(){
 
                 <tr>
                 <td>Total Drivers:</td>
-                <td>{}</td>
+                <td>{tot? tot.length : 0}</td>
                 </tr>
 
                 <tr>
@@ -102,22 +89,14 @@ export default function Jobs(){
             
                 )
             }
-            
-            return true
+            else{
+                return ''
+            }
         })
   
         
         setjobdetails(rs)
     }
-
-
-
-    //Delete record
-    function deleterec(id){
-        deletejobs(id)
-    }
-
-
 
     let outputresult 
     let obs
@@ -141,21 +120,6 @@ export default function Jobs(){
             </Link>
             </Col>
 
-            <Col md={3} xs={12}>
-            <Link to="/#"  onClick={(e)=>{
-                e.preventDefault()
-                deleterec(v._id)
-            }} className="cursor">
-            <FaTrashAlt className="text-danger mr-3 smbtn" />
-            </Link>
-
-            <Link to="/#" onClick={(e)=>{
-                e.preventDefault()
-                esetmodalShow(v._id)
-            }}>
-            <FaRegEdit className="text-primary smbtn" />
-            </Link>
-            </Col>
 
         </Row>
 
@@ -187,7 +151,7 @@ export default function Jobs(){
         
         <JobsForm   onHide={setmodalhide} show ={modalshow} />
 
-        <JobsEditForm  output={singlejob}  onHide={esetmodalhide} show ={emodalshow} />
+    
 
         </>
     )

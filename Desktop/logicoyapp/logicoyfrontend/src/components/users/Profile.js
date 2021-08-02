@@ -13,6 +13,7 @@ function reducer(state,action){
 export default function Profile(){
   const {user_id} = curuser()
 
+
 const {editUser} = useUserslogic()
 const [err,setErr] = useState("")
 const uss = useSelector((state)=>state.users.allusers)
@@ -23,7 +24,9 @@ const output = {...uss}
         if(user_id === v._id){
             return v
         }
-        return true
+        else{
+          return ''
+      }
     })
     const data = {...res[0]}
 
