@@ -1,28 +1,18 @@
-import React,{useState,useReducer} from 'react'
+import React,{useReducer} from 'react'
 import {Form,Col,Row,Modal,Button} from 'react-bootstrap'
 import useDriverlogic from './logic/useDriverlogic'
-import {useSelector} from 'react-redux'
 function reducer(state,action){
   return {...state, [action.name] : action.value}
 }
 
 
 export default function DriverForm(props){
-  const dva = useSelector((state)=>state.transporters.alltrans)
-  const dvax = {...dva}
     const [state,dispatch] = useReducer(reducer, {})
     const {adddriver,err} = useDriverlogic()
-    const [trns,setrans] = useState("")
   
       function onchange(e){
         const {name,value} = e.target
 
-        if(name === 'transporter'){
-          const rr = Object.values(dvax).filter(v => {
-            return v.transporter === value
-          })
-          setrans(rr[0])
-        }
         dispatch({name,value})
       }
 
@@ -30,12 +20,8 @@ export default function DriverForm(props){
         const st = {
           dcontact: state.dcontact? state.dcontact : '',
           driver: state.driver? state.driver : '',
-          license: state.license? state.license : '', 
-          transporter: state.transporter? state.transporter : trns.transporter,
-          tcontact: state.tcontact? state.tcontact : trns.tcontact,
-          trucknumber: state.trucknumber? state.trucknumber : ''
+          license: state.license? state.license : ''
         }
-        console.log(st)
         adddriver(st)
       }
   
@@ -67,35 +53,13 @@ export default function DriverForm(props){
             <Form.Control  name="dcontact" onChange = {onchange}  className="finpt" type="text" placeholder="Driver's Contact" />
             </Form.Group>
 
-            <Form.Group className="mb-3" >
-            <Form.Label className="flabl">Driver License Number</Form.Label>
-            <Form.Control  name="license" onChange = {onchange}  className="finpt" type="text" placeholder="Driver License Number" />
-            </Form.Group>
-
             </Col>
 
             <Col md={6} xs={12}>
 
-            <Form.Group className="mb-3">
-            <Form.Label className="flabl">Transporter</Form.Label>
-            <Form.Control name="transporter"  onChange = {onchange} as="select" className="mb-3">
-              <option value="" hidden> Select transporter</option>
-            {
-              Object.values(dvax).map(v => {
-                return <option key={v._id} value={v.transporter}>{v.transporter}</option>
-              })
-            }
-            </Form.Control>
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-            <Form.Label className="flabl">Transporter Contact</Form.Label>
-            <Form.Control  name="tcontact" defaultValue={trns? trns.tcontact : ''} onChange = {onchange}  className="finpt" disabled type="text" placeholder="Transporter Contact" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-            <Form.Label className="flabl">Truck Number</Form.Label>
-            <Form.Control  name="trucknumber" onChange = {onchange}  className="finpt" type="text" placeholder="Truck Number" />
+          <Form.Group className="mb-3" >
+            <Form.Label className="flabl">Driver License Number</Form.Label>
+            <Form.Control  name="license" onChange = {onchange}  className="finpt" type="text" placeholder="Driver License Number" />
             </Form.Group>
 
 

@@ -44,15 +44,15 @@ export default function Jobs(){
     END EDIT JOBS FORM MODAL
     -----------------------------*/
 
-    const cc = useSelector((state)=> state.drivers.alldrivers)
-    const dta = {...cc}
+    const tr = useSelector((state)=> state.trucks.alltrucks)
+    const trcks = {...tr}
 
     function jobsdetailss(phone){
         setmobilephone(phone)
 
-        const tot = Object.values(dta).filter(v => {
+        const tot = Object.values(trcks).filter(v => {
             if(phone === v.tcontact){
-                return v.driver
+                return v.trucknumber
             }
             else{
                 return ''
@@ -76,7 +76,7 @@ export default function Jobs(){
                 </tr>
 
                 <tr>
-                <td>Total Drivers:</td>
+                <td>Total Trucks:</td>
                 <td>{tot? tot.length : 0}</td>
                 </tr>
 

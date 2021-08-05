@@ -1,29 +1,44 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import axios from 'axios'
 import Error from '../../Error'
 import curuser from '../../users/curuser'
-import useData from '../../redux/useData'
+import {useDispatch} from 'react-redux'
+import {fetchalljobs} from '../../redux/actions/actions'
 export default function useJobslogic(){
   const [err,setErr] = useState("")
-  const {JobsData} = useData()
+  const dispatch = useDispatch()
   const {creator} = curuser()
+  
+
+
+        /*-------------------------------
+        *START GET ALL JOBS DATA
+        -------------------------------*/
+        const JobsData = useRef("")
+        JobsData.current = async ()=>{
+          try{
+            const config = {header:{"Content-Type": "application/json"}}
+            const {data} = await axios.get("http://localhost:8080/api/public/getjobs/",config)
+            if(data.success === true){
+              dispatch(fetchalljobs(data.jobs))
+            }
+          }
+          catch(err){
+            console.log(err.message)
+          }
+          
+        }
+        useEffect(()=>{
+          JobsData.current()
+        },[err])
+      /*-------------------------------
+      *END GET ALL JOBS DATA
+      -------------------------------*/
 
 
 
-  /*----------------------------------
-  *Start DATA INITIALIZATION
-  ----------------------------------*/
-  useEffect(()=>{
-    JobsData()
-  },[])
-/*----------------------------------
-*End DATA INITIALIZATION
-----------------------------------*/
 
 
-  /*----------------------------------
-  *Start REGISTER jobS
-  ----------------------------------*/
   const addjob = async (job)=>{
     
         const config = {
@@ -38,7 +53,7 @@ export default function useJobslogic(){
           
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
-            JobsData()
+            
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -69,7 +84,7 @@ export default function useJobslogic(){
           const {data} = await axios.put("http://localhost:8080/api/public/editjobs/",obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            JobsData()
+            
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -93,7 +108,8 @@ export default function useJobslogic(){
       const deletejob = async ()=>{
         try{
          await axios.delete("http://localhost:8080/api/public/deletejobs/"+id)
-         JobsData()
+         setErr("deleted")
+         
         }
         catch(err){
           console.log(err.message)

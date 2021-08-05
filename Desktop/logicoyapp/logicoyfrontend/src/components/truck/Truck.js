@@ -4,32 +4,29 @@ import Footer from '../Footer'
 import {Container,Row,Col} from 'react-bootstrap'
 import List from '../shared/List'
 import Details from '../shared/Details'
-import Transtransaction from '../shared/Transtransaction'
+import Trucktransactions from '../shared/Trucktransactions'
 import Tabs from '../shared/Tabs'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {FaTrashAlt, FaRegEdit} from 'react-icons/fa'
-import TransForm from './TransForm'
-import TransEditForm from './TransEditForm'
-import useTranslogic from './logic/useTranslogic'
+import TruckForm from './TruckForm'
+import TruckEditForm from './TruckEditForm'
+import useTrucklogic from './logic/useTrucklogic'
 import useSearchHook from '../useSearchHook'
 
-export default function Transporters(){
+export default function Truck(){
     const [modalshow, setModalShow] = React.useState(false);
     const [emodalshow, esetModalShow] = React.useState(false);
-    const [singletransporter,setsingletransporter] = useState()
-
-    const datasce = useSelector((state)=> state.transporters.alltrans)
-
-    const datasource = datasce? datasce : ''
-    
+    const [singletruck,setsingletruck] = useState()
+    const datasource = useSelector((state)=> state.trucks.alltrucks)
     const {output,searchdatalist} = useSearchHook(datasource)
-    const [transdetails, settransdetails] = useState()
-    const [mobilephone, setmobilephone] = useState()
+
+    const [drvdetails, setdrvdetails] = useState()
+    const [trucknumb, settrucknumber] = useState()
    
-    const {deleteTrans} = useTranslogic()
+    const {deletetrucks} = useTrucklogic()
     /*-----------------------------
-    START transporter FORM MODAL
+    START Truck FORM MODAL
     -----------------------------*/
     function setmodalShow(){
         setModalShow(true)
@@ -38,15 +35,16 @@ export default function Transporters(){
         setModalShow(false)
     }
     /*-----------------------------
-    END transporter FORM MODAL
+    END Truck FORM MODAL
     -----------------------------*/
 
     /*-----------------------------
-    START EDIT transporter FORM MODAL
+    START EDIT Truck FORM MODAL
     -----------------------------*/
+
+
   
     function esetmodalShow(id){
-        if(datasource){ 
         const obj = {...datasource}
         const dd = Object.values(obj).filter(v => {
             if(v._id === id){
@@ -56,73 +54,48 @@ export default function Transporters(){
                 return ''
             }
         })
-         setsingletransporter({...dd[0]})
-        }
-
+         setsingletruck({...dd[0]})
         esetModalShow(true)
     }
     
     function esetmodalhide(){
         esetModalShow(false)
     }
-
-
     /*-----------------------------
-    END EDIT transporter FORM MODAL
-    --------------------------J-*/
+    END EDIT Truck FORM MODAL
+    -----------------------------*/
     const dat = {...datasource}
+  
 
-
-    const tr = useSelector((state)=> state.trucks.alltrucks)
-    const trcks = {...tr}
-
-    function transporterdetails(phone){
-
-        setmobilephone(phone)
-
-        const tot = Object.values(trcks).filter(v => {
-            if(phone === v.tcontact){
-                return v.trucknumber
-            }
-            else{
-                return ''
-            }
-        })
-
-
+    function Truckdetails(trucknumber){
+        settrucknumber(trucknumber)
 
 
         const rs = Object.values(dat).map(v => {
-            if(v.tcontact === phone){  
+
+            if(v.trucknumber === trucknumber){  
             return (
-                 <React.Fragment  key={v._id}>
+                <React.Fragment key={v._id}>
 
                 <tr>
-                <td style={{width:"30%"}}>Transporter:</td>
+                <td style={{width:"30%"}}>Truck:</td>
+                <td>{v.truckname}</td>
+                </tr>
+
+                <tr>
+                <td>Truck Number:</td>
+                <td>{v.trucknumber}</td>
+                </tr>
+
+                <tr>
+                <td>Transporter:</td>
                 <td>{v.transporter}</td>
                 </tr>
 
                 <tr>
-                <td style={{width:"30%"}}>Contact Person:</td>
-                <td>{v.contactp}</td>
-                </tr>
-
-
-                <tr>
-                <td>Contact:</td>
+                <td>Transporter Number:</td>
                 <td>{v.tcontact}</td>
                 </tr>
-
-                <tr>
-                <td>Email:</td>
-                <td>{v.email}</td>
-                </tr>
-
-                <tr>
-                <td>Total Trucks:</td>
-                <td>{tot.length}</td>
-                </tr>
-
 
                 </React.Fragment>
             )
@@ -130,15 +103,21 @@ export default function Transporters(){
         else{
             return ''
         }
+ 
         })
         
-        settransdetails(rs)
+        
+        setdrvdetails(rs)
     }
+
+
 
     //Delete record
     function deleterec(id){
-        deleteTrans(id)
+        deletetrucks(id)
     }
+
+ 
 
     let outputresult 
     let obs
@@ -156,9 +135,9 @@ export default function Transporters(){
             <Link to="/#" style={{color: "#000000",fontSize: "11px"}} 
             onClick={(e)=>{
                 e.preventDefault()
-                transporterdetails(v.tcontact)
+                Truckdetails(v.trucknumber)
             }}>
-            {i+1}. {v.transporter}
+            {i+1}. {v.trucknumber}
             </Link>
             </Col>
 
@@ -183,6 +162,8 @@ export default function Transporters(){
         )
     })
 
+
+
     return (
         <>
         <Navbars />
@@ -196,18 +177,18 @@ export default function Transporters(){
                 </Col>
                 <Col xs={12} md={8}>
                     <div className="pt-4 pb-4">
-                    <Tabs Heading="Add transporter"   setModalShow={setmodalShow} />
-                    <Details DLIST = {transdetails} />
-                    <Transtransaction PHONENUM={mobilephone} />
+                    <Tabs Heading="Add Truck"   setModalShow={setmodalShow} />
+                    <Details DLIST = {drvdetails} />
+                    <Trucktransactions TRUCKNUM={trucknumb} />
                     </div>
                 </Col>
             </Row>
         </Container>
         <Footer />
         
-        <TransForm   onHide={setmodalhide} show ={modalshow} />
+        <TruckForm   onHide={setmodalhide} show ={modalshow} />
 
-        <TransEditForm  output={singletransporter}  onHide={esetmodalhide} show ={emodalshow} />
+        <TruckEditForm  output={singletruck}  onHide={esetmodalhide} show ={emodalshow} />
 
         </>
     )

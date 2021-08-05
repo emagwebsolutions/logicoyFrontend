@@ -1,5 +1,5 @@
 import React from 'react'
-import {Nav,Navbar,Col,Row,Container} from 'react-bootstrap'
+import {Nav,Navbar,Col,Row,Container,NavDropdown} from 'react-bootstrap'
 import {Link,useHistory} from 'react-router-dom'
 import Logo from '../imgs/logo.jpg'
 import { FaHouseDamage } from 'react-icons/fa'
@@ -8,6 +8,7 @@ import curuser from './users/curuser'
 export default function Navbars(){
   const {creator} = curuser()
   const history = useHistory()
+
   if(!localStorage.length){
     history.push('/')
   }
@@ -39,9 +40,19 @@ else{
             <Link to="/dashboard" className="nav-link">Dashboard</Link>
            {(chkrole === 'Admin') ? <Link to="/users" className="nav-link">Users</Link> : ''}
             <Link to="/transporters" className="nav-link">Transporters</Link>
+            <Link to="/trucks" className="nav-link">Trucks</Link>
             <Link to="/driver" className="nav-link">Driver</Link>
             <Link to="/jobs" className="nav-link">Jobs</Link>
+
+            <NavDropdown title="Rates" id="basic-nav-dropdown" alignRight>
+                    <NavDropdown.Item to="/fuelrates">Fuel</NavDropdown.Item>
+                    <NavDropdown.Item to="/transportersrates">Transporters</NavDropdown.Item>
+            </NavDropdown>
+
+            <Link to="/waybills" className="nav-link">Waybills</Link>
+
             <Link to="/reports" className="nav-link">Reports</Link>
+
             </Nav>
 
         </Navbar.Collapse>

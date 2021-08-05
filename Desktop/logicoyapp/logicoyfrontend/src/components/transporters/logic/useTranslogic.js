@@ -1,22 +1,45 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import axios from 'axios'
 import Error from '../../Error'
 import curuser from '../../users/curuser'
-import useData from '../../redux/useData'
+import {useDispatch} from 'react-redux'
+import {fetchalltransporters} from '../../redux/actions/actions'
 export default function useTranslogic(){
   const [err,setErr] = useState("")
-  const {TranspData} = useData()
+  const dispatch = useDispatch()
 
 
-  /*----------------------------------
-  *Start DATA INITIALIZATION
-  ----------------------------------*/
-  useEffect(()=>{
-    TranspData()
-  },[])
-/*----------------------------------
-*End DATA INITIALIZATION
-----------------------------------*/
+
+    
+
+        /*-------------------------------
+        *START GET ALL TRANSPORTERS DATA
+        -------------------------------*/
+        const TranspData = useRef("")
+        TranspData.current = async ()=>{
+          try{
+            const config = {header:{"Content-Type": "application/json"}}
+            const {data} = await axios.get("http://localhost:8080/api/public/gettransporters/",config)
+            if(data.success === true){
+              dispatch(fetchalltransporters(data.transporters))
+            }
+          }
+          catch(err){
+            console.log(err.message)
+          }
+          
+        }
+
+        useEffect(()=>{
+          TranspData.current()
+        },[err])
+     
+      /*-------------------------------
+      *END GET ALL TRANSPORTERS DATA
+      -------------------------------*/
+  
+
+
 
 
   /*----------------------------------
@@ -33,7 +56,7 @@ export default function useTranslogic(){
           const {data} = await axios.post("http://localhost:8080/api/public/addtransporters/",{...driver,...creator},config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)  
-            TranspData() 
+            
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -67,7 +90,7 @@ export default function useTranslogic(){
           const {data} = await axios.put("http://localhost:8080/api/public/edittransporters/",obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            TranspData() 
+            
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -93,7 +116,7 @@ export default function useTranslogic(){
       const deletetransp = async ()=>{
         try{
          await axios.delete("http://localhost:8080/api/public/deletetransporters/"+id)
-         TranspData() 
+         
         }
         catch(err){
           console.log(err.message)

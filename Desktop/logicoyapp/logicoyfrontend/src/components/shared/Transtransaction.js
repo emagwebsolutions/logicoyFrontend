@@ -1,10 +1,9 @@
 import React from 'react'
 import {Tabs,Tab,Col,Container,Row} from 'react-bootstrap'
-import Payments from './Payments'
-import Drivers from './Drivers'
-import Waybills from '../shared/Waybills'
+import Trucksinfo from './Trucksinfo'
+import Waybills from './Waybills'
 
-export default function Transactions({getTransp}){
+export default function Transtransaction(props){
     return (
         <>
         <br /><br />
@@ -15,19 +14,14 @@ export default function Transactions({getTransp}){
 
 
         <Tabs defaultActiveKey="Waybills" id="uncontrolled-tab-example" className="mb-3">
-
         <Tab eventKey="Waybills"  title="Waybills">
-            <Waybills data={getTransp} />
+            <Waybills PHONE={props.PHONENUM} />
         </Tab>
 
-        <Tab eventKey="Drivers" title="Drivers">
-            <Drivers data={getTransp} />
+        <Tab eventKey="Trucks"  title="Trucks">
+            <Trucksinfo PHONE={props.PHONENUM} />
         </Tab>
-
-        <Tab eventKey="Payments" title="Payments">
-            <Payments data={getTransp} />
-        </Tab>
-
+      
         </Tabs>
 
     

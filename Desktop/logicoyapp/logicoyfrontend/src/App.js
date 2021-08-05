@@ -11,6 +11,7 @@ import Privateroute from './components/Privateroute'
 import Dashboard from './components/dashboards/Dashboard'
 import Jobs from './components/jobs/Jobs'
 import Driver from './components/driver/Driver'
+import Truck from './components/truck/Truck'
 import Transporters from './components/transporters/Transporters'
 import Reports from './components/reports/Reports'
 import Profile from './components/users/Profile'
@@ -29,6 +30,7 @@ export default function App(){
                     <Route exact path="/jobs" component={Jobs} />
                     <Route exact path="/transporters" component={Transporters} />
                     <Route exact path="/driver" component={Driver} />
+                    <Route exact path="/trucks" component={Truck} />
                     <Route exact path="/reports" component={Reports} />
                     <Route exact path="/profile" component={Profile} />
                 </Switch>

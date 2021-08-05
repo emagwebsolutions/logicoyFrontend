@@ -1,24 +1,39 @@
-import React from 'react'
+import React,{useState} from 'react'
+import axios from 'axios'
+import Error from '../../Error'
+export default function useJobslogic(){
+  const [err,setErr] = useState("")
+  
 
-export default function useApprovedbillslogic({data}){
-    const output = Object.values(data).map((v,i) =>{
-        if(v.payment > 0){
-        return (
-            <tr key={v._id}>
-            <td>{i+1}</td>
-            <td>
-            {moment(v.date).format("MMM Do YY")}
-            </td>
-            <td>{v.fullname}</td>
-            <td>{v.driver}</td>
-            <td>
-            <Link to="/#" onClick={(e)=>{e.preventDefault()}}>
-            <FaRegEdit className="text-primary smbtn" />
-            </Link>
-            </td>
-            </tr>
-        )
+
+  /*----------------------------------
+  *Start EDIT jobS
+  ----------------------------------*/
+  const approvejob = async (obj)=>{
+        const config = {
+          header:{
+            "Content-Type": "application/json"
+          }
         }
-    })
-    return {output}
+        try{
+          const {data} = await axios.put("http://localhost:8080/api/public/editjobs/",obj,config)
+          if(data.success === true){
+            setErr(<Error message={data.mess} bgcolor="success" />)
+            
+          }
+          if(data.success === false){
+            setErr(<Error message={data.mess} bgcolor="danger" />)
+          }
+          setTimeout(()=> setErr(""),4000)
+        }
+        catch(err){
+          console.log(err.message)
+        }
+  }
+  /*----------------------------------
+  *End EDIT USER
+  ----------------------------------*/
+
+
+  return {approvejob,err}
 }

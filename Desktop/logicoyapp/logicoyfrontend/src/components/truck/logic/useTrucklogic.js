@@ -3,8 +3,8 @@ import axios from 'axios'
 import Error from '../../Error'
 import curuser from '../../users/curuser'
 import {useDispatch} from 'react-redux'
-import  {fetchalldrivers} from '../../redux/actions/actions'
-export default function useDriverlogic(){
+import  {fetchalltrucks} from '../../redux/actions/actions'
+export default function useTrucklogic(){
   const [err,setErr] = useState("")
   const dispatch = useDispatch()
 
@@ -12,15 +12,15 @@ export default function useDriverlogic(){
 
 
         /*-------------------------------
-        *START GET ALL DRIVERS DATA
+        *START GET ALL TruckS DATA
         -------------------------------*/
-        const DriversData = useRef("")
-        DriversData.current = async ()=>{
+        const TrucksData = useRef("")
+        TrucksData.current = async ()=>{
           try{
             const config = {header:{"Content-Type": "application/json"}}
-            const {data} = await axios.get("http://localhost:8080/api/public/getdrivers/",config)
+            const {data} = await axios.get("http://localhost:8080/api/public/gettrucks/",config)
             if(data.success === true){
-              dispatch(fetchalldrivers(data.drivers))
+              dispatch(fetchalltrucks(data.trucks))
             }
           }
           catch(err){
@@ -29,19 +29,19 @@ export default function useDriverlogic(){
           
         }
         useEffect(()=>{
-          DriversData.current()
+          TrucksData.current()
         },[err])
       /*-------------------------------
-      *END GET ALL DROVERS DATA
+      *END GET ALL TRUCKS DATA
       -------------------------------*/
 
 
 
 
   /*----------------------------------
-  *Start REGISTER DRIVERS
+  *Start REGISTER TruckS
   ----------------------------------*/
-  const adddriver = async (driver)=>{
+  const addtruck = async (Truck)=>{
     const {creator} = curuser()
         const config = {
           header:{
@@ -49,10 +49,9 @@ export default function useDriverlogic(){
           }
         }
         try{
-          const {data} = await axios.post("http://localhost:8080/api/public/adddrivers/",{...driver,...creator},config)
+          const {data} = await axios.post("http://localhost:8080/api/public/addtrucks/",{...Truck,...creator},config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
-            
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -66,15 +65,15 @@ export default function useDriverlogic(){
       },4000)
   }
   /*----------------------------------
-  *End REGISTER DRIVERS
+  *End REGISTER TruckS
   ----------------------------------*/
 
 
   /*----------------------------------
-  *Start EDIT DRIVERS
+  *Start EDIT TruckS
   ----------------------------------*/
  
-  const editdriver = async (obj)=>{
+  const edittruck = async (obj)=>{
  
         const config = {
           header:{
@@ -83,7 +82,7 @@ export default function useDriverlogic(){
         }
    
         try{
-          const {data} = await axios.put("http://localhost:8080/api/public/editdrivers/",obj,config)
+          const {data} = await axios.put("http://localhost:8080/api/public/edittrucks/",obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
             
@@ -99,28 +98,26 @@ export default function useDriverlogic(){
         }
   }
   /*----------------------------------
-  *End EDIT USER
+  *End EDIT TRUCK
   ----------------------------------*/
 
 
   /*----------------------------------
-  *Begin DELETE DRIVER
+  *Begin DELETE TRUCK
   ----------------------------------*/
 
-  function deletedrivers(id){    
+  function deletetrucks(id){    
     if(window.confirm('Are you sure you want to delete!')){
 
-      const deleteDriver = async ()=>{
+      const deleteTruck = async ()=>{
         try{
-         await axios.delete("http://localhost:8080/api/public/deletedrivers/"+id)
-         
-         
+         await axios.delete("http://localhost:8080/api/public/deletetrucks/"+id)
         }
         catch(err){
           console.log(err.message)
         }
       }
-      deleteDriver()
+      deleteTruck()
 
     }
     else{
@@ -130,8 +127,8 @@ export default function useDriverlogic(){
 }
 
 /*----------------------------------
-*End DELETE USER
+*End DELETE TRUCK
 ----------------------------------*/
 
-  return {adddriver,editdriver,deletedrivers,err}
+  return {addtruck,edittruck,deletetrucks,err}
 }

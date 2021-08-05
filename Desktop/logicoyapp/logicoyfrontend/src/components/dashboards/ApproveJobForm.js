@@ -1,6 +1,6 @@
 import React, { useReducer,useState} from 'react'
 import { Form, Col, Row, Modal, Button } from 'react-bootstrap'
-import useJobslogic from './logic/useJobslogic'
+import useApprovedbillslogic from './logic/useApprovedbillslogic'
 import {useSelector} from 'react-redux'
 import DateFormats from '../DateFormats'
 
@@ -9,25 +9,17 @@ function reducer(state, action) {
 }
 
 
-export default function JobsForm(props) {
+export default function ApproveJobForm(props) {
   const [state, dispatch] = useReducer(reducer, {})
-  const { editjob, err } = useJobslogic()
+  const { approvejob, err } = useApprovedbillslogic()
   const [trns,setrans] = useState("")
   const [drv,setdrv] = useState("")
-
 
   const cc = useSelector((state)=> state.drivers.alldrivers)
   const dta = {...cc}
    //Get date formats
    const {ymd} = DateFormats()
    var v = { ...props.output }
-
- 
-
-
- 
-  
-
 
   const drvs = {
     fullname: state.fullname ? state.fullname : v.fullname,
@@ -42,14 +34,15 @@ export default function JobsForm(props) {
     fuel: state.fuel ? state.fuel : v.fuel,
     fuelstation: state.fuelstation ? state.fuelstation : v.fuelstation,
     date: state.date ? state.date : v.date,
+    company: state.company ? state.company : v.company,
     creatorid: state.creatorid ? state.creatorid : v.creatorid,
     createdby: state.createdby ? state.createdby : v.createdby,
     creatorphone: state.creatorphone ? state.creatorphone : v.creatorphone,
     id: v._id
   }
 
-  function editjobs() {
-    editjob(drvs)
+  function approvejobs() {
+    approvejob(drvs)
   }
 
 
@@ -96,13 +89,10 @@ export default function JobsForm(props) {
           <Row>
             <Col md={6} xs={12}>
 
-            <Form.Group className="mb-3">
-            <Form.Label className="flabl">Client</Form.Label>
-            <Form.Control  name="fullname" defaultValue={v.fullname} onChange = {onchange} as="select" className="mb-3">
-            <option value="OLAM">OLAM</option>
-            <option value="WILMAR">WILMAR</option>
-            </Form.Control>
-            </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label className="flabl">Client's Name</Form.Label>
+                <Form.Control defaultValue={v.fullname} name="fullname" onChange={onchange} className="finpt" type="text" placeholder="Client's Name" />
+              </Form.Group>
 
               <Form.Group className="mb-3">
                 <Form.Label className="flabl">Transporter</Form.Label>
@@ -285,21 +275,27 @@ export default function JobsForm(props) {
                 />
               </Form.Group>
 
-  
+              <Form.Group className="mb-3">
+            <Form.Label className="flabl">Company</Form.Label>
+            <Form.Control  name="company" defaultValue={v.company} onChange = {onchange} as="select" className="mb-3">
+            <option value="OLAM">OLAM</option>
+            <option value="WILMAR">WILMAR</option>
+            </Form.Control>
+            </Form.Group>
 
 
 
 
             </Col>
           </Row>
-
+ 
           <h2>{err}</h2>
 
         </Modal.Body>
         <Modal.Footer>
 
           <Button onClick={props.onHide} className="btn btn-danger btn-md">Close</Button>
-          <Button onClick={editjobs} className="btn btn-success btn-md">Save </Button>
+          <Button onClick={approvejobs} className="btn btn-success btn-md">APPROVE JOB</Button>
         </Modal.Footer>
 
       </Modal>

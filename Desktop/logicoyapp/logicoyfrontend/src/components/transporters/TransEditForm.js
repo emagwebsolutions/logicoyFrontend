@@ -17,10 +17,11 @@ export default function TransEditForm(props){
       }
 
     const v = {...props.output}
-
     const drvs = {
       transporter : state.transporter? state.transporter : v.transporter,
+      email : state.email? state.email : v.email,
       tcontact : state.tcontact? state.tcontact : v.tcontact,
+      contactp : state.contactp? state.contactp : v.contactp,
       id : v._id
     }
     
@@ -44,31 +45,40 @@ export default function TransEditForm(props){
           </Modal.Title>
         </Modal.Header>
         <Modal.Body   className="modalpadding">
+        <Row>
+      
+      <Col md={6} xs={12}>
 
-      <Row>
-            <Col md={6} xs={12}>
-
-            <Form.Group className="mb-3" >
-            <Form.Label className="flabl">Transporter's Name</Form.Label>
-            <Form.Control  name="transporter" onChange = {onchange}  className="finpt" 
-            defaultValue={v.transporter}
-            type="text" placeholder="Transporter's Name" />
-            </Form.Group>
-
-            </Col>
+      <Form.Group className="mb-3" >
+      <Form.Label className="flabl">Transporter's Name</Form.Label>
+      <Form.Control defaultValue={v.transporter} name="transporter" onChange = {onchange}  className="finpt" type="text" placeholder="Transporter's Name" />
+      </Form.Group>
 
 
-            <Col md={6} xs={12}>
 
-            <Form.Group className="mb-3" >
-            <Form.Label className="flabl">Contact</Form.Label>
-            <Form.Control  name="tcontact" 
-             defaultValue={v.tcontact}
-            onChange = {onchange}  className="finpt" type="text" placeholder="Contact Number" />
-            </Form.Group>
+      <Form.Group className="mb-3" >
+      <Form.Label className="flabl">Email (Optional)</Form.Label>
+      <Form.Control  defaultValue={v.email} name="email" onChange = {onchange}  className="finpt" type="email" placeholder="Email" />
+      </Form.Group>
 
-            </Col>
-        </Row>
+      </Col>
+
+      <Col md={6} xs={12}>
+
+      <Form.Group className="mb-3" >
+      <Form.Label className="flabl">Contact Number</Form.Label>
+      <Form.Control  defaultValue={v.tcontact} name="tcontact" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Number" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" >
+      <Form.Label className="flabl">Contact Person (Optional)</Form.Label>
+      <Form.Control defaultValue={v.contactp} name="contactp" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Person" />
+      </Form.Group>
+
+      </Col>
+
+
+  </Row>
     
           <h2>{err}</h2>
         </Modal.Body>

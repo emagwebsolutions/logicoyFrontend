@@ -48,6 +48,11 @@ export default function TransForm(props){
             <Form.Control  name="transporter" onChange = {onchange}  className="finpt" type="text" placeholder="Transporter's Name" />
             </Form.Group>
 
+            <Form.Group className="mb-3" >
+            <Form.Label className="flabl">Email (Optional)</Form.Label>
+            <Form.Control  name="email" onChange = {onchange}  className="finpt" type="email" placeholder="Email" />
+            </Form.Group>
+
             </Col>
 
             <Col md={6} xs={12}>
@@ -55,6 +60,11 @@ export default function TransForm(props){
             <Form.Group className="mb-3" >
             <Form.Label className="flabl">Contact Number</Form.Label>
             <Form.Control  name="tcontact" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Number" />
+            </Form.Group>
+
+            <Form.Group className="mb-3" >
+            <Form.Label className="flabl">Contact Person (Optional)</Form.Label>
+            <Form.Control  name="contactp" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Person" />
             </Form.Group>
 
 

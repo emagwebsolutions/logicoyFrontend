@@ -11,8 +11,7 @@ const composedEnhancer = compose(applyMiddleware(thunk),window.__REDUX_DEVTOOLS_
 
 const persistConfig = {
   key: 'root',
-  storage,
-  whitelist: ['users','jobs','drivers','transporters']
+  storage
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

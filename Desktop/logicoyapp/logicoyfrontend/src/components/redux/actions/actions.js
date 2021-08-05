@@ -22,6 +22,34 @@ export const fetchalldrivers = (data)=>{
     }
 }
 
+export const fetchalltrucks = (data)=>{
+    return {
+        type: constants.FETCH_ALL_TRUCKS,
+        payload: data
+    }
+}
+
+export const fetchallwaybills = (data)=>{
+    return {
+        type: constants.FETCH_ALL_WAYBILLS,
+        payload: data
+    }
+}
+
+export const fetchallfuelrates = (data)=>{
+    return {
+        type: constants.FETCH_ALL_FUELRATES,
+        payload: data
+    }
+}
+
+export const fetchalltransportersrates = (data)=>{
+    return {
+        type: constants.FETCH_ALL_TRANSPORTERSRATES,
+        payload: data
+    }
+}
+
 
 export const fetchalltransporters = (data)=>{
     return {

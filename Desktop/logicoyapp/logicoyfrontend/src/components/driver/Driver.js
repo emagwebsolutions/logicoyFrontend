@@ -4,7 +4,7 @@ import Footer from '../Footer'
 import {Container,Row,Col} from 'react-bootstrap'
 import List from '../shared/List'
 import Details from '../shared/Details'
-import Transactions from '../shared/Transactions'
+import Transactionx from '../shared/Transactionx'
 import Tabs from '../shared/Tabs'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -19,6 +19,7 @@ export default function Driver(){
     const [emodalshow, esetModalShow] = React.useState(false);
     const [singledriver,setsingledriver] = useState()
     const datasource = useSelector((state)=> state.drivers.alldrivers)
+    const jobs = useSelector((state)=> state.jobs.alljobs)
     const {output,searchdatalist} = useSearchHook(datasource)
 
     const [drvdetails, setdrvdetails] = useState()
@@ -41,6 +42,8 @@ export default function Driver(){
     /*-----------------------------
     START EDIT DRIVER FORM MODAL
     -----------------------------*/
+
+
   
     function esetmodalShow(id){
         const obj = {...datasource}
@@ -63,9 +66,20 @@ export default function Driver(){
     END EDIT DRIVER FORM MODAL
     -----------------------------*/
     const dat = {...datasource}
+    const trp = {...jobs}
 
     function driverdetails(phone){
         setmobilephone(phone)
+
+        //Total Trips
+        const trips = Object.values(trp).filter(v => {
+            if(v.dcontact === phone){  
+                return v.dcontact
+            }
+            else{
+                return ''
+            }
+        })
 
         const rs = Object.values(dat).map(v => {
 
@@ -84,13 +98,13 @@ export default function Driver(){
                 </tr>
 
                 <tr>
-                <td>Truck Number:</td>
-                <td>{v.trucknumber}</td>
+                <td>License Number:</td>
+                <td>{v.license}</td>
                 </tr>
 
                 <tr>
-                <td>Transporter:</td>
-                <td>{v.transporter}</td>
+                <td>Total Trips:</td>
+                <td>{trips.length}</td>
                 </tr>
 
                 </React.Fragment>
@@ -175,7 +189,7 @@ export default function Driver(){
                     <div className="pt-4 pb-4">
                     <Tabs Heading="Add Driver"   setModalShow={setmodalShow} />
                     <Details DLIST = {drvdetails} />
-                    <Transactions PHONENUM={mobilephone} />
+                    <Transactionx PHONENUM={mobilephone} />
                     </div>
                 </Col>
             </Row>

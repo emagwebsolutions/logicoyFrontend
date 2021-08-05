@@ -1,22 +1,40 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import axios from 'axios'
 import Error from '../../Error'
-import useData from '../../redux/useData'
-
+import {useDispatch} from 'react-redux'
+import {fetchallusers} from '../../redux/actions/actions'
 export default function useUserslogic(){
   const [err,setErr] = useState("")
+  const dispatch = useDispatch()
   
-  const {UsersDatas} = useData()
-  
-  /*----------------------------------
-  *Start DATA INITIALIZATION
-  ----------------------------------*/
-    useEffect(()=>{
-      UsersDatas()
-    },[])
-  /*----------------------------------
-  *End DATA INITIALIZATION
-  ----------------------------------*/
+
+
+          /*-------------------------------
+          *START GET ALL USERS DATA
+          -------------------------------*/
+          const UsersDatas = useRef("")
+          UsersDatas.current = async ()=>{
+            try{
+              const config = {header:{"Content-Type": "application/json"}}
+              const {data} = await axios.get("http://localhost:8080/api/public/users/",config)
+              if(data.success === true){
+                dispatch(fetchallusers(data.users))
+              }
+            }
+            catch(err){
+              console.log(err.message)
+            }
+            
+          }
+       
+          useEffect(()=>{
+            UsersDatas.current()
+          },[err])
+      
+        /*-------------------------------
+        *END GET ALL USERS DATA
+        -------------------------------*/
+
 
   /*----------------------------------
   *Start REGISTER USERS
@@ -31,7 +49,7 @@ export default function useUserslogic(){
           const {data} = await axios.post("http://localhost:8080/api/public/register/",user,config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            UsersDatas()
+            
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -62,7 +80,7 @@ export default function useUserslogic(){
           const {data} = await axios.put("http://localhost:8080/api/public/edituser",obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            UsersDatas()
+            
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -85,7 +103,7 @@ export default function useUserslogic(){
           const deleteUser = async ()=>{
             try{
              await axios.delete("http://localhost:8080/api/public/deleteuser/"+id)
-             UsersDatas()
+             
             }
             catch(err){
               console.log(err.message)
