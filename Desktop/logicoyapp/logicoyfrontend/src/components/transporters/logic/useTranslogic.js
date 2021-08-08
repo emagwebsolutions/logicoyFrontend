@@ -19,7 +19,7 @@ export default function useTranslogic(){
         TranspData.current = async ()=>{
           try{
             const config = {header:{"Content-Type": "application/json"}}
-            const {data} = await axios.get("http://localhost:8080/api/public/gettransporters/",config)
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/gettransporters/`,config)
             if(data.success === true){
               dispatch(fetchalltransporters(data.transporters))
             }
@@ -53,7 +53,7 @@ export default function useTranslogic(){
           }
         }
         try{
-          const {data} = await axios.post("http://localhost:8080/api/public/addtransporters/",{...driver,...creator},config)
+          const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/addtransporters/`,{...driver,...creator},config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)  
             
@@ -87,7 +87,7 @@ export default function useTranslogic(){
         }
    
         try{
-          const {data} = await axios.put("http://localhost:8080/api/public/edittransporters/",obj,config)
+          const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/edittransporters/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
             
@@ -115,7 +115,7 @@ export default function useTranslogic(){
 
       const deletetransp = async ()=>{
         try{
-         await axios.delete("http://localhost:8080/api/public/deletetransporters/"+id)
+         await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletetransporters/`+id)
          
         }
         catch(err){
@@ -132,6 +132,6 @@ export default function useTranslogic(){
 /*----------------------------------
 *End DELETE TRANSPORTERS
 ----------------------------------*/
-
-  return {addTrans,editTrans,deleteTrans,err}
+const Transdata = TranspData.current()
+  return {addTrans,editTrans,deleteTrans,err,Transdata}
 }

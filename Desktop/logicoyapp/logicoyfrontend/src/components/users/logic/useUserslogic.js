@@ -16,7 +16,7 @@ export default function useUserslogic(){
           UsersDatas.current = async ()=>{
             try{
               const config = {header:{"Content-Type": "application/json"}}
-              const {data} = await axios.get("http://localhost:8080/api/public/users/",config)
+              const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/users/`,config)
               if(data.success === true){
                 dispatch(fetchallusers(data.users))
               }
@@ -46,7 +46,7 @@ export default function useUserslogic(){
           }
         }
         try{
-          const {data} = await axios.post("http://localhost:8080/api/public/register/",user,config)
+          const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/register/`,user,config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)
             
@@ -77,7 +77,7 @@ export default function useUserslogic(){
           }
         }
         try{
-          const {data} = await axios.put("http://localhost:8080/api/public/edituser",obj,config)
+          const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/edituser`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
             
@@ -102,7 +102,7 @@ export default function useUserslogic(){
         if(window.confirm('Are you sure you want to delete!')){
           const deleteUser = async ()=>{
             try{
-             await axios.delete("http://localhost:8080/api/public/deleteuser/"+id)
+             await axios.delete(`${process.env.REACT_APP_URL}/api/public/deleteuser/`+id)
              
             }
             catch(err){

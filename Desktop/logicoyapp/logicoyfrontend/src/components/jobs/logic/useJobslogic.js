@@ -4,21 +4,37 @@ import Error from '../../Error'
 import curuser from '../../users/curuser'
 import {useDispatch} from 'react-redux'
 import {fetchalljobs} from '../../redux/actions/actions'
+import useDriverlogic from '../../driver/logic/useDriverlogic'
+import useTranslogic from '../../transporters/logic/useTranslogic'
+import useTrucklogic from '../../truck/logic/useTrucklogic'
+
+
 export default function useJobslogic(){
   const [err,setErr] = useState("")
   const dispatch = useDispatch()
   const {creator} = curuser()
-  
+  const {Driverdata} = useDriverlogic()
+  const {Transdata} = useTranslogic()
+  const {Trucksdata} = useTrucklogic()
 
 
         /*-------------------------------
         *START GET ALL JOBS DATA
         -------------------------------*/
+        const allfuncs = useRef("")
+        allfuncs.current = async ()=>{
+          await Driverdata()
+          await Transdata()
+          await Trucksdata()
+        }
+        
+
+
         const JobsData = useRef("")
         JobsData.current = async ()=>{
           try{
             const config = {header:{"Content-Type": "application/json"}}
-            const {data} = await axios.get("http://localhost:8080/api/public/getjobs/",config)
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/getjobs/`,config)
             if(data.success === true){
               dispatch(fetchalljobs(data.jobs))
             }
@@ -29,14 +45,12 @@ export default function useJobslogic(){
           
         }
         useEffect(()=>{
+          allfuncs.current()
           JobsData.current()
         },[err])
       /*-------------------------------
       *END GET ALL JOBS DATA
       -------------------------------*/
-
-
-
 
 
   const addjob = async (job)=>{
@@ -49,7 +63,7 @@ export default function useJobslogic(){
         try{
         const obj = {...job,...creator}
    
-      const {data} = await axios.post("http://localhost:8080/api/public/addjobs/",obj,config)
+      const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/addjobs/`,obj,config)
           
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
@@ -81,7 +95,7 @@ export default function useJobslogic(){
           }
         }
         try{
-          const {data} = await axios.put("http://localhost:8080/api/public/editjobs/",obj,config)
+          const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/editjobs/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
             
@@ -107,7 +121,7 @@ export default function useJobslogic(){
     if(window.confirm('Are you sure you want to delete!')){
       const deletejob = async ()=>{
         try{
-         await axios.delete("http://localhost:8080/api/public/deletejobs/"+id)
+         await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletejobs/`+id)
          setErr("deleted")
          
         }

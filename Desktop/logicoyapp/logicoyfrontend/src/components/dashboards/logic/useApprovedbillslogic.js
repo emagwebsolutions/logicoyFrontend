@@ -16,7 +16,7 @@ export default function useJobslogic(){
           }
         }
         try{
-          const {data} = await axios.put("http://localhost:8080/api/public/editjobs/",obj,config)
+          const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/editjobs/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
             

@@ -10,7 +10,6 @@ export default function useDriverlogic(){
 
 
 
-
         /*-------------------------------
         *START GET ALL DRIVERS DATA
         -------------------------------*/
@@ -18,7 +17,7 @@ export default function useDriverlogic(){
         DriversData.current = async ()=>{
           try{
             const config = {header:{"Content-Type": "application/json"}}
-            const {data} = await axios.get("http://localhost:8080/api/public/getdrivers/",config)
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/getdrivers/`,config)
             if(data.success === true){
               dispatch(fetchalldrivers(data.drivers))
             }
@@ -49,7 +48,7 @@ export default function useDriverlogic(){
           }
         }
         try{
-          const {data} = await axios.post("http://localhost:8080/api/public/adddrivers/",{...driver,...creator},config)
+          const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/adddrivers/`,{...driver,...creator},config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
             
@@ -83,7 +82,7 @@ export default function useDriverlogic(){
         }
    
         try{
-          const {data} = await axios.put("http://localhost:8080/api/public/editdrivers/",obj,config)
+          const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/editdrivers/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
             
@@ -112,7 +111,7 @@ export default function useDriverlogic(){
 
       const deleteDriver = async ()=>{
         try{
-         await axios.delete("http://localhost:8080/api/public/deletedrivers/"+id)
+         await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletedrivers/`+id)
          
          
         }
@@ -132,6 +131,6 @@ export default function useDriverlogic(){
 /*----------------------------------
 *End DELETE USER
 ----------------------------------*/
-
-  return {adddriver,editdriver,deletedrivers,err}
+const Driverdata =  DriversData.current()
+  return {adddriver,editdriver,deletedrivers,err,Driverdata}
 }

@@ -18,7 +18,7 @@ export default function useTrucklogic(){
         TrucksData.current = async ()=>{
           try{
             const config = {header:{"Content-Type": "application/json"}}
-            const {data} = await axios.get("http://localhost:8080/api/public/gettrucks/",config)
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/gettrucks/`,config)
             if(data.success === true){
               dispatch(fetchalltrucks(data.trucks))
             }
@@ -49,7 +49,7 @@ export default function useTrucklogic(){
           }
         }
         try{
-          const {data} = await axios.post("http://localhost:8080/api/public/addtrucks/",{...Truck,...creator},config)
+          const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/addtrucks/`,{...Truck,...creator},config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
           }
@@ -82,7 +82,7 @@ export default function useTrucklogic(){
         }
    
         try{
-          const {data} = await axios.put("http://localhost:8080/api/public/edittrucks/",obj,config)
+          const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/edittrucks/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
             
@@ -91,7 +91,6 @@ export default function useTrucklogic(){
             setErr(<Error message={data.mess} bgcolor="danger" />)
           }
           setTimeout(()=> setErr(""),4000)
-          
         }
         catch(err){
           console.log(err.message)
@@ -108,10 +107,9 @@ export default function useTrucklogic(){
 
   function deletetrucks(id){    
     if(window.confirm('Are you sure you want to delete!')){
-
       const deleteTruck = async ()=>{
         try{
-         await axios.delete("http://localhost:8080/api/public/deletetrucks/"+id)
+         await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletetrucks/`+id)
         }
         catch(err){
           console.log(err.message)
@@ -129,6 +127,6 @@ export default function useTrucklogic(){
 /*----------------------------------
 *End DELETE TRUCK
 ----------------------------------*/
-
-  return {addtruck,edittruck,deletetrucks,err}
+const Trucksdata = TrucksData.current()
+  return {addtruck,edittruck,deletetrucks,err,Trucksdata}
 }

@@ -14,7 +14,7 @@ useEffect(()=>{
             }
         }
         try{
-            const {data} = await axios.get("http://localhost:8080/api/public/gethistory/",config)
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/gethistory/`,config)
             setHist(data.data)
         }
         catch(err){

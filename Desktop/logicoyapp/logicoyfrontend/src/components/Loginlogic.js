@@ -4,7 +4,6 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import Error from './Error'
 
-
 function reducer(state,action){
     return {...state, [action.name] : action.value}
 }
@@ -17,28 +16,23 @@ export default function Loginlogic({history}){
         const {value,name} = e.target
         dispatch({name,value})
     }
-
-
     
         const loginfunc = async (e) => {
             e.preventDefault()
-
             const config = {
                 header: {"Content-Type": "application/json"}
             }
-
             try{
-                const {data} = await axios.post("http://localhost:8080/api/private/Login/", user, config)
+                const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/private/Login/`, user, config)
                 if(data.success === true){
                     localStorage.setItem('userToken', data.token)
                     localStorage.setItem("userd", JSON.stringify(data.user))
-                    history.push("/dashboard")
+                    history.push("/dashboard") 
                 }
                 if(data.success === false){
                     setErr(<Error message={data.mess} bgcolor="danger" />)
                     setTimeout(()=>setErr(""), 4000)
                 }
-               
             }
             catch(err){
                 console.log(err.message)

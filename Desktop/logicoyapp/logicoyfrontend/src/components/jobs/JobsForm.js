@@ -95,12 +95,12 @@ export default function JobsForm(props){
   
             <Form.Group className="mb-3">
             <Form.Label className="flabl">Transporter</Form.Label>
-            <Form.Control  defaultValue={trns? trns.transporter : ''} disabled name="transporter" onChange = {onchange}  className="finpt" type="text" placeholder="Transporter" />
+            <Form.Control value={trns? trns.transporter : ''} disabled name="transporter" onChange = {onchange}  className="finpt" type="text" placeholder="Transporter" />
             </Form.Group>
   
             <Form.Group className="mb-3">
             <Form.Label className="flabl">Transporter's Contact</Form.Label>
-            <Form.Control  name="tcontact" defaultValue={trns? trns.tcontact : ''} disabled onChange = {onchange}    className="finpt" type="text" placeholder="Transporter's Contact" />
+            <Form.Control  name="tcontact" value={trns? trns.tcontact : ''} disabled onChange = {onchange}    className="finpt" type="text" placeholder="Transporter's Contact" />
             </Form.Group>
   
             <Form.Group className="mb-3" >
@@ -253,12 +253,12 @@ export default function JobsForm(props){
   
             <Form.Group className="mb-3" >
             <Form.Label className="flabl">Driver's Contact</Form.Label>
-            <Form.Control   name="dcontact" defaultValue={drv? drv.dcontact : ''}  disabled onChange = {onchange}  className="finpt" type="text" placeholder="Driver's Contact" />
+            <Form.Control   name="dcontact" value={drv? drv.dcontact : ''}  disabled onChange = {onchange}  className="finpt" type="text" placeholder="Driver's Contact" />
             </Form.Group>
   
             <Form.Group className="mb-3" >
             <Form.Label className="flabl">Driver License Number</Form.Label>
-            <Form.Control  defaultValue={drv? drv.license : ''} disabled name="license" onChange = {onchange}  className="finpt" type="text" placeholder="Driver License Number" />
+            <Form.Control value={drv? drv.license : ''} disabled name="license" onChange = {onchange}  className="finpt" type="text" placeholder="Driver License Number" />
             </Form.Group>
   
             <Form.Group className="mb-3" >
