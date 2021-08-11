@@ -22,12 +22,6 @@ export default function JobsForm(props) {
    const {ymd} = DateFormats()
    var v = { ...props.output }
 
- 
-
-
- 
-  
-
 
   const drvs = {
     fullname: state.fullname ? state.fullname : v.fullname,
@@ -45,6 +39,7 @@ export default function JobsForm(props) {
     creatorid: state.creatorid ? state.creatorid : v.creatorid,
     createdby: state.createdby ? state.createdby : v.createdby,
     creatorphone: state.creatorphone ? state.creatorphone : v.creatorphone,
+    customer: state.customer ? state.customer : v.customer,
     id: v._id
   }
 
@@ -97,12 +92,20 @@ export default function JobsForm(props) {
             <Col md={6} xs={12}>
 
             <Form.Group className="mb-3">
-            <Form.Label className="flabl">Client</Form.Label>
+            <Form.Label className="flabl">Cargo Owner</Form.Label>
             <Form.Control  name="fullname" defaultValue={v.fullname} onChange = {onchange} as="select" className="mb-3">
             <option value="OLAM">OLAM</option>
             <option value="WILMAR">WILMAR</option>
             </Form.Control>
             </Form.Group>
+
+
+
+            <Form.Group className="mb-3">
+            <Form.Label className="flabl">Customer</Form.Label>
+            <Form.Control  defaultValue={v.customer} name="customer" onChange = {onchange}  className="finpt" type="text" placeholder="Customer" />
+            </Form.Group>
+
 
               <Form.Group className="mb-3">
                 <Form.Label className="flabl">Transporter</Form.Label>
@@ -228,7 +231,8 @@ export default function JobsForm(props) {
 
               <Form.Group className="mb-3">
                 <Form.Label className="flabl">Truck Number</Form.Label>
-                <Form.Control defaultValue={v.trucknumber} name="trucknumber" onChange={onchange} as="select" className="mb-3">
+                <Form.Control  name="trucknumber" onChange={onchange} as="select" className="mb-3">
+                  <option value={v.trucknumber} hidden>{v.trucknumber}</option>
                   {
                     Object.values(dta).map(v => {
                       return <option key={v._id} value={v.trucknumber}>{v.trucknumber}</option>

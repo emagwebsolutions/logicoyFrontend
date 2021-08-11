@@ -131,6 +131,5 @@ export default function useDriverlogic(){
 /*----------------------------------
 *End DELETE USER
 ----------------------------------*/
-const Driverdata =  DriversData.current()
-  return {adddriver,editdriver,deletedrivers,err,Driverdata}
+  return {adddriver,editdriver,deletedrivers,err}
 }

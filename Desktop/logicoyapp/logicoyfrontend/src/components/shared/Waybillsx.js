@@ -1,9 +1,14 @@
 import React from "react"
 import { Table } from 'react-bootstrap'
 import {useSelector} from 'react-redux'
+import DateFormats from '../DateFormats'
 
 
 export default function Waybillsx(props){
+
+  const {formatDate} = DateFormats()
+
+
 
 
   //Data source
@@ -16,7 +21,7 @@ const waybills = Object.values(jobs).map((v,i) => {
       return (
         <tr key={v._id}>
         <td>{i + 1}</td>
-        <td>{v.date}</td>
+        <td>{formatDate(v.date)}</td>
         <td>{v.fullname}</td>
         <td>{v.driver}</td>
         <td>{v.destination}</td>

@@ -22,6 +22,10 @@ export default function TransEditForm(props){
       email : state.email? state.email : v.email,
       tcontact : state.tcontact? state.tcontact : v.tcontact,
       contactp : state.contactp? state.contactp : v.contactp,
+      tcontacttwo : state.tcontacttwo? state.tcontacttwo : v.tcontacttwo,
+      contactptwo : state.contactptwo? state.contactptwo : v.contactptwo,
+      tcontactthree : state.tcontactthree? state.tcontactthree : v.tcontactthree,
+      contactpthree : state.contactpthree? state.contactpthree : v.contactpthree,
       id : v._id
     }
     
@@ -54,11 +58,19 @@ export default function TransEditForm(props){
       <Form.Control defaultValue={v.transporter} name="transporter" onChange = {onchange}  className="finpt" type="text" placeholder="Transporter's Name" />
       </Form.Group>
 
-
-
       <Form.Group className="mb-3" >
       <Form.Label className="flabl">Email (Optional)</Form.Label>
       <Form.Control  defaultValue={v.email} name="email" onChange = {onchange}  className="finpt" type="email" placeholder="Email" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" >
+      <Form.Label className="flabl">Contact Number One</Form.Label>
+      <Form.Control  defaultValue={v.tcontact} name="tcontact" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Number" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" >
+      <Form.Label className="flabl">Contact Person One (Optional)</Form.Label>
+      <Form.Control defaultValue={v.contactp} name="contactp" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Person" />
       </Form.Group>
 
       </Col>
@@ -66,13 +78,23 @@ export default function TransEditForm(props){
       <Col md={6} xs={12}>
 
       <Form.Group className="mb-3" >
-      <Form.Label className="flabl">Contact Number</Form.Label>
-      <Form.Control  defaultValue={v.tcontact} name="tcontact" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Number" />
+      <Form.Label className="flabl">Contact Number Two (Optional)</Form.Label>
+      <Form.Control  defaultValue={v.tcontacttwo} name="tcontacttwo" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Number" />
       </Form.Group>
 
       <Form.Group className="mb-3" >
-      <Form.Label className="flabl">Contact Person (Optional)</Form.Label>
-      <Form.Control defaultValue={v.contactp} name="contactp" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Person" />
+      <Form.Label className="flabl">Contact Person Two (Optional)</Form.Label>
+      <Form.Control defaultValue={v.contactptwo} name="contactptwo" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Person" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" >
+      <Form.Label className="flabl">Contact Number Three (Optional)</Form.Label>
+      <Form.Control  defaultValue={v.tcontactthree} name="tcontactthree" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Number" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" >
+      <Form.Label className="flabl">Contact Person Three (Optional)</Form.Label>
+      <Form.Control defaultValue={v.contactpthree} name="contactpthree" onChange = {onchange}  className="finpt" type="text" placeholder="Contact Person" />
       </Form.Group>
 
       </Col>

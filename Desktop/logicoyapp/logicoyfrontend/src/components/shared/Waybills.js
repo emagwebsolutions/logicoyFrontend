@@ -5,8 +5,10 @@ import {Link} from 'react-router-dom'
 import {FaTrashAlt, FaRegEdit} from 'react-icons/fa'
 import useJobslogic from '../jobs/logic/useJobslogic'
 import JobsEditForm from '../jobs/JobsEditForm'
+import DateFormats from '../DateFormats'
 
 export default function Waybills(props){
+  const {formatDate} = DateFormats()
 
   //Logic function
   const {deletejobs} = useJobslogic() 
@@ -60,7 +62,7 @@ const waybills = Object.values(jobs).map((v,i) => {
       return (
         <tr key={v._id}>
         <td>{i + 1}</td>
-        <td>{v.date}</td>
+        <td>{formatDate(v.date)}</td>
         <td>{v.fullname}</td>
         <td>{v.driver}</td>
         <td>{v.destination}</td>

@@ -1,7 +1,43 @@
 import React from 'react'
 import {Row} from 'react-bootstrap'
 import {Bar} from 'react-chartjs-2'
+import moment from 'moment'
+import DateFormats from '../DateFormats'
+import useDashboardlogic from './logic/useDashboardlogic'
+
+
 export default function Chartbox(){
+    const {ymd} = DateFormats()
+    const {chartdata} = useDashboardlogic()
+
+    const start = moment().startOf('week')
+
+    //Start date
+    const std = new Date(start)
+    const day = std.getDate()
+    const mo = day+1
+    const tu = day+2
+    const we = day+3
+    const th = day+4
+    const fr = day+5
+   
+
+    const resp = {...chartdata}
+    function gettotal(d){
+        const nd = new Date()
+        nd.setDate(d)
+        const dte = ymd(nd)
+        const rex = Object.values(resp).filter(v => {
+            return ymd(v.date) === dte
+        }).length
+        return rex
+    }
+    const mon = gettotal(mo)
+    const tue = gettotal(tu)
+    const wed = gettotal(we)
+    const thr = gettotal(th)
+    const fri = gettotal(fr)
+
 
     return (
     <>
@@ -9,18 +45,17 @@ export default function Chartbox(){
     <div className="chartbx">
         <Bar
             data={{
-                labels: ['Accra', 'Kumasi', 'Takoradi', 'Tamale', 'Sunyani', 'Koforidua'],
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
                 datasets: [
                     {
-                        label: 'NUMBER OF TRIPS',
-                        data: [12, 19, 3, 5, 2, 3],
+                        label: 'THIS WEEK JOBS',
+                        data: [mon,tue,wed,thr,fri],
                         backgroundColor: [
                             'rgba(255,99,132,0.2)', 
                             'rgba(54,162,235,0.2)', 
                             'rgba(255,206,86,0.2)', 
                             'rgba(75,192,192,0.2)', 
                             'rgba(153,102,255,0.2)', 
-                            'rgba(255,159,64,0.2)',
                         ],
                         borderColor: [
                             'rgba(255,99,132,1)', 

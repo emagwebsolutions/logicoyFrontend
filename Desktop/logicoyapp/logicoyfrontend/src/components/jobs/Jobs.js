@@ -19,6 +19,7 @@ export default function Jobs(){
 
     const [jobdetails, setjobdetails] = useState()
     const [mobilephone, setmobilephone] = useState()
+
     /*-----------------------------
     START JOBS FORM MODAL
     -----------------------------*/
@@ -32,17 +33,6 @@ export default function Jobs(){
     END JOBS FORM MODAL
     -----------------------------*/
 
-    /*-----------------------------
-    START EDIT JOBS FORM MODAL
-    -----------------------------*/
-  
-    
-
-
-    
-    /*-----------------------------
-    END EDIT JOBS FORM MODAL
-    -----------------------------*/
 
     const tr = useSelector((state)=> state.trucks.alltrucks)
     const trcks = {...tr}
@@ -150,8 +140,6 @@ export default function Jobs(){
         <Footer />
         
         <JobsForm   onHide={setmodalhide} show ={modalshow} />
-
-    
 
         </>
     )

@@ -48,6 +48,7 @@ export default function JobsForm(props){
         
           const st = {
               fullname:  state.fullname? state.fullname : '',
+              customer:  state.customer? state.customer : '',
               transporter:  trns.transporter?  trns.transporter : '',
               tcontact:  trns.tcontact?  trns.tcontact : '',
               bags:  state.bags?  state.bags : '',
@@ -85,13 +86,20 @@ export default function JobsForm(props){
             <Col md={6} xs={12}>
   
             <Form.Group className="mb-3">
-            <Form.Label className="flabl">Client</Form.Label>
+            <Form.Label className="flabl">Cargo Owner</Form.Label>
             <Form.Control  name="fullname" onChange = {onchange} as="select" className="mb-3">
-            <option hidden>Select Client</option>
+            <option hidden>Select Cargo Owner</option>
             <option value="OLAM">OLAM</option>
             <option value="WILMAR">WILMAR</option>
             </Form.Control>
             </Form.Group>
+
+
+            <Form.Group className="mb-3">
+            <Form.Label className="flabl">Customer</Form.Label>
+            <Form.Control  name="customer" onChange = {onchange}  className="finpt" type="text" placeholder="Customer" />
+            </Form.Group>
+
   
             <Form.Group className="mb-3">
             <Form.Label className="flabl">Transporter</Form.Label>

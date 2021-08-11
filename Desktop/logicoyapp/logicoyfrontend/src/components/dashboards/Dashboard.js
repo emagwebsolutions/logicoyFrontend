@@ -2,17 +2,37 @@ import React from 'react'
 import Navbars from '../Navbars'
 import {Container,Row,Col} from 'react-bootstrap'
 import Footer from '../Footer'
-import Stats from './Stats'
 import Historybox from './Historybox'
-import WaybillHeader from './WaybillHeader'
 import Chartbox from './Chartbox'
 import Approvedwaybills from './Approvedwaybills'
 import Unapprovedwaybills from './Unapprovedwaybills'
-import useDashboardlogic from './logic/useDashboardlogic'
+import axios from 'axios'
+import Totaltrips from './Totaltrips'
+import Totaltransp from './Totaltransp'
+import Totaltrucks from './Totaltrucks'
 
 export default function Dashboard({history}){
-    //Dashboard logic
-    const {jobs,trips,trucks,transps} = useDashboardlogic({history})
+
+    const authorize = async ()=>{
+        try{
+            const config = {
+                headers:{
+                    "Content-Type" : "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('userToken')}`
+                }
+            }
+            const {data} = await axios.get("http://localhost:8080/api/private/authorize/",config)
+            if(!data.success){
+                localStorage.setItem("userToken", "")
+                history.push("/")
+                localStorage.clear()
+            }
+        }
+        catch(err){
+            console.log(err.message)
+        }
+}
+authorize()
 
 
     return (
@@ -20,13 +40,9 @@ export default function Dashboard({history}){
         <Navbars />
         <Container className="mb-4">
             <Row>
-                
-                <Stats bg="bg-success" total={trips} description="Total Trips" col="4" />
-
-                <Stats bg="bg-primary" total={trucks} description="Total Trucks" col="4" />
-
-                <Stats bg="bg-danger" total={transps} description="Total Transporters" col="4" />
-
+            <Totaltrips />
+            <Totaltrucks />
+            <Totaltransp />
             </Row>
         </Container>
 
@@ -37,16 +53,14 @@ export default function Dashboard({history}){
 
                 <Col xs={12} md={6}>
                 <div className="bg-white p-4">
-                    <WaybillHeader title="Unapproved Waybills" />
-                    <Unapprovedwaybills data={jobs} />
+                    <Unapprovedwaybills />
                     <div className="clearfix"></div>
                     </div>
                 </Col>
 
                 <Col xs={12} md={6}>
                     <div className="bg-white p-4">
-                    <WaybillHeader title="Approved Waybills" />
-                    <Approvedwaybills data={jobs} />
+                    <Approvedwaybills />
                     <div className="clearfix"></div>
                     </div>
                 </Col>

@@ -4,11 +4,18 @@ import {FaRegEdit} from 'react-icons/fa'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import ApproveJobForm from './ApproveJobForm'
+import DateFormats from '../DateFormats'
+import {Row,Col,Form} from 'react-bootstrap'
+import useSearchHook from '../useSearchHook'
 
-export default function Unapprovedwaybills({data}){
+export default function Unapprovedwaybills(){
    //Data source
    const job = useSelector((state)=> state.jobs.alljobs)
    const jobs = {...job}
+
+   const {output,searchdatalist} = useSearchHook(job)
+
+   const {formatDate} = DateFormats()
 
     //States
    const [modalshow, setModalShow] = React.useState(false);
@@ -42,13 +49,21 @@ export default function Unapprovedwaybills({data}){
   /*-----------------------------
   END JOBS FORM MODAL
   -----------------------------*/
+  let obs
+    if(output){
+        obs = output
+    }
+    else{
+        obs = Object.values(jobs)
+    }
 
+  const waybills = Object.values(obs).map((v,i) => {
 
-  const waybills = Object.values(jobs).map((v,i) => {
+    if(v.approved === 'No'){ 
       return (
         <tr key={v._id}>
         <td>{i + 1}</td>
-        <td>{v.date}</td>
+        <td>{formatDate(v.date)}</td>
         <td>{v.fullname}</td>
         <td>{v.driver}</td>
         <td>
@@ -66,12 +81,35 @@ export default function Unapprovedwaybills({data}){
         </td>
         </tr>
       )
+    }
+    else{
+        return ''
+    }
 })
 
 
 
     return (
         <>
+
+
+        <Row>
+
+        <Col xs={12} md={6}>
+            <div className="htitle">
+            PENDING JOBS
+            </div>
+        </Col>
+
+        <Col xs={12} md={6}>
+        <Form.Group>
+        <Form.Control type="text" onChange={searchdatalist} placeholder="Search Waybills" />
+        </Form.Group>
+        </Col>
+
+        </Row>
+
+
         <div className="waybillTb">
         <Table responsive="lg" >
             <thead>

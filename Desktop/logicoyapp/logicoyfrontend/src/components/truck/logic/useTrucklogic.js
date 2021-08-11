@@ -127,6 +127,6 @@ export default function useTrucklogic(){
 /*----------------------------------
 *End DELETE TRUCK
 ----------------------------------*/
-const Trucksdata = TrucksData.current()
-  return {addtruck,edittruck,deletetrucks,err,Trucksdata}
+
+  return {addtruck,edittruck,deletetrucks,err}
 }

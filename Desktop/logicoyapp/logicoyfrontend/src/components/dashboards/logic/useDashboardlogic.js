@@ -1,63 +1,90 @@
-import {useEffect,useState} from 'react'
+import {useEffect,useState,useRef} from 'react'
 import axios from 'axios'
-const _ = require('lodash')
 
-export default function useDashboardlogic({history}){
+export default function useDashboardlogic(){
 
-    const [jobs,setJobs] = useState({})
+    const [tottrips,settottrips] = useState(0)
+    const [tottrucks,settottrucks] = useState(0)
+    const [tottransp,settottransp] = useState(0)
+    const [chartdata,setchartdata] = useState()
+    const Totaltrips = useRef("")
+    const Totaltransp = useRef("")
+    const Totaltrucks = useRef("")
+    const Chartdata = useRef("")
 
-    const authorize = async ()=>{
-            try{
-                const config = {
-                    headers:{
-                        "Content-Type" : "application/json",
-                        Authorization: `Bearer ${localStorage.getItem('userToken')}`
-                    }
-                }
-                const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/private/authorize/`,config)
-                if(!data.success){
-                    localStorage.setItem("userToken", "")
-                    history.push("/")
-                    localStorage.clear()
-                }
-          
-         
-            }
-            catch(err){
-                console.log(err.message)
-            }
-    }
-    authorize()
-
-
-    useEffect(()=>{   
-        const getJobs = async ()=>{
-
-            const config = {
-                header: {"Content-Type": "application/json"}
-            }
-            try{
-                const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/getjobs`, config)
-              
-                setJobs(data.jobs)
-
-            }
-            catch(err){
-                console.log(err.message)
+    Totaltrips.current = async ()=>{
+        const config = {
+            header: {
+                "Content-Type" : "application/json"
             }
         }
-        getJobs()
+        try{
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/gettottrips`,config)
+            settottrips(data.output)
+        
+        }
+        catch(err){
+            console.log(err.message)
+        }
+    }
+    
 
+    Totaltransp.current = async ()=>{
+        const config = {
+            header: {
+                "Content-Type" : "application/json"
+            }
+        }
+        try{
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/gettottransp`,config)
+            settottransp(data.output)
+        }
+        catch(err){
+            console.log(err.message)
+        }
+    }
+ 
+
+
+    Totaltrucks.current = async ()=>{
+        const config = {
+            header: {
+                "Content-Type" : "application/json"
+            }
+        }
+        try{
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/gettottrucks`,config)
+            settottrucks(data.output)
+        }
+        catch(err){
+            console.log(err.message)
+        }
+    } 
+
+
+      Chartdata.current = async ()=>{
+        const config = {
+            header: {
+                "Content-Type" : "application/json"
+            }
+        }
+        try{
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/public/getchartdata`,config)
+            setchartdata(data.output)
+        }
+        catch(err){
+            console.log(err.message)
+        }
+    } 
+
+
+    useEffect(()=>{
+        Totaltrips.current()
+        Totaltransp.current()
+        Totaltrucks.current()
+        Chartdata.current()
     },[])
 
-    const obj = Object.values(jobs)
-    const trips = Object.keys(jobs).length
-
-    const truck = _.groupBy(obj, "trucknumber")
-    const trucks = Object.keys(truck).length
-
-    const transp = _.groupBy(obj, "transporter")
-    const transps = Object.keys(transp).length
-
-    return {jobs,trips,trucks,transps}
+    
+    return {tottrips,tottrucks,tottransp,chartdata}
 }

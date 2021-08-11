@@ -23,6 +23,7 @@ export default function ApproveJobForm(props) {
 
   const drvs = {
     fullname: state.fullname ? state.fullname : v.fullname,
+    customer: state.customer ? state.customer : v.customer,
     transporter:  trns.transporter?  trns.transporter : v.transporter,
     tcontact: trns.tcontact ? trns.tcontact : v.tcontact,
     bags: state.bags ? state.bags : v.bags,
@@ -34,7 +35,6 @@ export default function ApproveJobForm(props) {
     fuel: state.fuel ? state.fuel : v.fuel,
     fuelstation: state.fuelstation ? state.fuelstation : v.fuelstation,
     date: state.date ? state.date : v.date,
-    company: state.company ? state.company : v.company,
     creatorid: state.creatorid ? state.creatorid : v.creatorid,
     createdby: state.createdby ? state.createdby : v.createdby,
     creatorphone: state.creatorphone ? state.creatorphone : v.creatorphone,
@@ -81,7 +81,7 @@ export default function ApproveJobForm(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3><strong>New Job</strong></h3>
+            <h3><strong>Pending Job</strong></h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalpadding">
@@ -90,8 +90,13 @@ export default function ApproveJobForm(props) {
             <Col md={6} xs={12}>
 
               <Form.Group className="mb-3">
-                <Form.Label className="flabl">Client's Name</Form.Label>
+                <Form.Label className="flabl">Cargo owner</Form.Label>
                 <Form.Control defaultValue={v.fullname} name="fullname" onChange={onchange} className="finpt" type="text" placeholder="Client's Name" />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label className="flabl">Customer</Form.Label>
+                <Form.Control defaultValue={v.customer} name="customer" onChange={onchange} className="finpt" type="text" placeholder="Client's Name" />
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -275,14 +280,7 @@ export default function ApproveJobForm(props) {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3">
-            <Form.Label className="flabl">Company</Form.Label>
-            <Form.Control  name="company" defaultValue={v.company} onChange = {onchange} as="select" className="mb-3">
-            <option value="OLAM">OLAM</option>
-            <option value="WILMAR">WILMAR</option>
-            </Form.Control>
-            </Form.Group>
-
+     
 
 
 

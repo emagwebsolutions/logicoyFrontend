@@ -132,6 +132,6 @@ export default function useTranslogic(){
 /*----------------------------------
 *End DELETE TRANSPORTERS
 ----------------------------------*/
-const Transdata = TranspData.current()
-  return {addTrans,editTrans,deleteTrans,err,Transdata}
+
+  return {addTrans,editTrans,deleteTrans,err}
 }

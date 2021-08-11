@@ -4,32 +4,17 @@ import Error from '../../Error'
 import curuser from '../../users/curuser'
 import {useDispatch} from 'react-redux'
 import {fetchalljobs} from '../../redux/actions/actions'
-import useDriverlogic from '../../driver/logic/useDriverlogic'
-import useTranslogic from '../../transporters/logic/useTranslogic'
-import useTrucklogic from '../../truck/logic/useTrucklogic'
 
 
 export default function useJobslogic(){
   const [err,setErr] = useState("")
   const dispatch = useDispatch()
   const {creator} = curuser()
-  const {Driverdata} = useDriverlogic()
-  const {Transdata} = useTranslogic()
-  const {Trucksdata} = useTrucklogic()
 
-
+    
         /*-------------------------------
         *START GET ALL JOBS DATA
         -------------------------------*/
-        const allfuncs = useRef("")
-        allfuncs.current = async ()=>{
-          await Driverdata()
-          await Transdata()
-          await Trucksdata()
-        }
-        
-
-
         const JobsData = useRef("")
         JobsData.current = async ()=>{
           try{
@@ -45,7 +30,6 @@ export default function useJobslogic(){
           
         }
         useEffect(()=>{
-          allfuncs.current()
           JobsData.current()
         },[err])
       /*-------------------------------

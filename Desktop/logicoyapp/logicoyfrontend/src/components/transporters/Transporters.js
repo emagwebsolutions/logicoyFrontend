@@ -102,16 +102,39 @@ export default function Transporters(){
                 <td>{v.transporter}</td>
                 </tr>
 
+
                 <tr>
-                <td style={{width:"30%"}}>Contact Person:</td>
+                <td style={{width:"30%"}}>Contact Person One:</td>
                 <td>{v.contactp}</td>
                 </tr>
+                <tr>
+                <td>Contact One:</td>
+                <td>{v.tcontact}</td>
+                </tr>
 
 
                 <tr>
-                <td>Contact:</td>
-                <td>{v.tcontact}</td>
+                <td style={{width:"30%"}}>Contact Person Two:</td>
+                <td>{v.contactptwo}</td>
                 </tr>
+                <tr>
+                <td>Contact Two:</td>
+                <td>{v.tcontacttwo}</td>
+                </tr>
+
+
+                <tr>
+                <td style={{width:"30%"}}>Contact Person Three:</td>
+                <td>{v.contactpthree}</td>
+                </tr>
+                <tr>
+                <td>Contact Three:</td>
+                <td>{v.tcontactthree}</td>
+                </tr>
+
+
+
+
 
                 <tr>
                 <td>Email:</td>
