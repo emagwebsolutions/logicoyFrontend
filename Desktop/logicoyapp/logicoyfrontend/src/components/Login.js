@@ -5,7 +5,6 @@ import Logo from '../imgs/logo.jpg'
 import Loginlogic from './Loginlogic'
 
 export default function Login({history}){
-
     //Logic for Login component
     const {err,onchangex,loginfunc} = Loginlogic({history})
 
@@ -37,6 +36,7 @@ export default function Login({history}){
             <Link to="/#" className="login-btn btn btn-primary btn-block btn-sm" onClick={loginfunc}>
                 Login
             </Link>
+            
             </Form>
 
             </Col>

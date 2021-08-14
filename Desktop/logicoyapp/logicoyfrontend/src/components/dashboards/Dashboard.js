@@ -10,8 +10,10 @@ import axios from 'axios'
 import Totaltrips from './Totaltrips'
 import Totaltransp from './Totaltransp'
 import Totaltrucks from './Totaltrucks'
+import RestrictAccess from '../shared/RestrictAccess'
 
 export default function Dashboard({history}){
+    const {hidepage2} = RestrictAccess()
 
     const authorize = async ()=>{
         try{
@@ -51,14 +53,14 @@ authorize()
         <Container className="mb-4 ">
             <Row>
 
-                <Col xs={12} md={6}>
+                <Col xs={12} md={6} style={hidepage2()}>
                 <div className="bg-white p-4">
                     <Unapprovedwaybills />
                     <div className="clearfix"></div>
                     </div>
                 </Col>
 
-                <Col xs={12} md={6}>
+                <Col xs={12} md={6} style={hidepage2()}>
                     <div className="bg-white p-4">
                     <Approvedwaybills />
                     <div className="clearfix"></div>

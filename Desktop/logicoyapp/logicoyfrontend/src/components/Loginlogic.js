@@ -19,10 +19,15 @@ export default function Loginlogic({history}){
     
         const loginfunc = async (e) => {
             e.preventDefault()
+     
             const config = {
                 header: {"Content-Type": "application/json"}
             }
             try{
+
+                setErr(<Error message="Please wait..." bgcolor="warning" />)
+
+
                 const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/private/Login/`, user, config)
                 if(data.success === true){
                     localStorage.setItem('userToken', data.token)

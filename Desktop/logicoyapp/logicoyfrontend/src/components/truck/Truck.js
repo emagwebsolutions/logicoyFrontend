@@ -69,18 +69,10 @@ export default function Truck(){
 
     function Truckdetails(trucknumber){
         settrucknumber(trucknumber)
-
-
         const rs = Object.values(dat).map(v => {
-
             if(v.trucknumber === trucknumber){  
             return (
                 <React.Fragment key={v._id}>
-
-                <tr>
-                <td style={{width:"30%"}}>Truck:</td>
-                <td>{v.truckname}</td>
-                </tr>
 
                 <tr>
                 <td>Truck Number:</td>

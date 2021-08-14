@@ -19,18 +19,12 @@ export default function RestrictAccess(){
             const user = JSON.parse(localStorage.getItem('userd'))
             return { display: (user.role === 'Admin') ? "block" : "none" }
         }
-        else{
-            history.push('/')
-        }
     }
 
     const hidepage2 = ()=>{
         if(localStorage.getItem('userd')){
             const user = JSON.parse(localStorage.getItem('userd'))
             return { display: (user.role === 'Guest')? "none" : "block" }
-        }
-        else{
-            history.push('/')
         }
     }
 
@@ -41,9 +35,7 @@ export default function RestrictAccess(){
                 history.push('/')
             }
         }
-        else{
-            history.push('/')
-        }
+
     }
 
     return {pageredirect,logout,hidepage,accessdenied,hidepage2}

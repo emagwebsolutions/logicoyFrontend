@@ -30,7 +30,6 @@ export default function TruckForm(props){
         const st = {
           transporter: state.transporter? state.transporter : trns.transporter,
           tcontact: state.tcontact? state.tcontact : trns.tcontact,
-          truckname: state.truckname? state.truckname : '',
           trucknumber: state.trucknumber? state.trucknumber : ''
         }
         addtruck(st)
@@ -53,11 +52,6 @@ export default function TruckForm(props){
       <Row>
       
             <Col md={6} xs={12}>
-
-            <Form.Group className="mb-3" >
-            <Form.Label className="flabl">Truck Name</Form.Label>
-            <Form.Control  name="truckname" onChange = {onchange}  className="finpt" type="text" placeholder="Truck Name" />
-            </Form.Group>
 
          
             <Form.Group className="mb-3" >

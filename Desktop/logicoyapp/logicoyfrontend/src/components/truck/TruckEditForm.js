@@ -29,7 +29,6 @@ export default function TruckForm(props){
     const drvs = {
       transporter : state.transporter? state.transporter : v.transporter, 
       tcontact : state.tcontact? state.tcontact : v.tcontact,
-      truckname : state.truckname? state.truckname : v.truckname,
       trucknumber : state.trucknumber? state.trucknumber : v.trucknumber,
       id : v._id
     }
@@ -58,12 +57,6 @@ export default function TruckForm(props){
       <Row>
             <Col md={6} xs={12}>
 
-            <Form.Group className="mb-3" >
-            <Form.Label className="flabl">Truck Name</Form.Label>
-            <Form.Control  name="truckname" onChange = {onchange}  className="finpt" 
-            defaultValue={v.truckname}
-            type="text" placeholder="Truck Name" />
-            </Form.Group>
 
             <Form.Group className="mb-3" >
             <Form.Label className="flabl">Truck Number</Form.Label>
