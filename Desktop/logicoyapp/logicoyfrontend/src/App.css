@@ -160,6 +160,12 @@ font-size: 1.1rem;
     width: 100%;
 }
 
+.ratestbl{
+    height: 30rem;
+    overflow-y: scroll;
+    width: 100%;
+}
+
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
 }

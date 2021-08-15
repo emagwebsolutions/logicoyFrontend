@@ -277,7 +277,7 @@ export default function JobsForm(props){
             <Form.Group className="mb-3">
             <Form.Label className="flabl">Fuel Station (Optional)</Form.Label>
             <Form.Control  name="fuelstation" onChange = {onchange} as="select" className="mb-3">
-            <option value="" hidden>Select Filling Station</option>
+            <option value="" hidden>Select Fuel Station</option>
             <option value="Shell">Shell</option>
             <option value="Engene">Engene</option>
             </Form.Control>

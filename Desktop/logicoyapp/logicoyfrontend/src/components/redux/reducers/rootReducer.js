@@ -5,7 +5,7 @@ import driversReducer from './driversReducer'
 import transportersReducer from './transportersReducer'
 import waybillsReducer from './waybillsReducer'
 import trucksReducer from './trucksReducer'
-import transratesReducer from './transratesReducer'
+import cargoratesReducer from './cargoratesReducer'
 import fuelratesReducer from './fuelratesReducer'
 
 const rootReducer = combineReducers({
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     transporters: transportersReducer,
     waybills: waybillsReducer,
     trucks: trucksReducer,
-    transrates: transratesReducer,
+    cargorates: cargoratesReducer,
     fuelrates: fuelratesReducer
 })
 

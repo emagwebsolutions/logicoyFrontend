@@ -6,5 +6,5 @@ export const constants = {
     FETCH_ALL_TRUCKS : "Fetch all trucks",
     FETCH_ALL_WAYBILLS : "Fetch all waybills",
     FETCH_ALL_FUELRATES : "Fetch all fuel rates",
-    FETCH_ALL_TRANSPORTERSRATES : "Fetch all transporters rates",
+    FETCH_ALL_CARGORATES : "Fetch all cargo rates"
 }

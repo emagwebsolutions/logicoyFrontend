@@ -43,12 +43,7 @@ export const fetchallfuelrates = (data)=>{
     }
 }
 
-export const fetchalltransportersrates = (data)=>{
-    return {
-        type: constants.FETCH_ALL_TRANSPORTERSRATES,
-        payload: data
-    }
-}
+
 
 
 export const fetchalltransporters = (data)=>{
@@ -58,3 +53,19 @@ export const fetchalltransporters = (data)=>{
     }
 }
 
+
+
+
+export const fetchallfuel = (data)=>{
+    return {
+        type: constants.FETCH_ALL_FUELRATES,
+        payload: data
+    }
+}
+
+export const fetchallcargo = (data)=>{
+    return {
+        type: constants.FETCH_ALL_CARGORATES,
+        payload: data
+    }
+}

@@ -15,6 +15,7 @@ import Truck from './components/truck/Truck'
 import Transporters from './components/transporters/Transporters'
 import Reports from './components/reports/Reports'
 import Profile from './components/users/Profile'
+import Rates from './components/rates/Rates'
 import { PersistGate } from 'redux-persist/integration/react'
 
 export default function App(){
@@ -33,6 +34,7 @@ export default function App(){
                     <Route exact path="/trucks" component={Truck} />
                     <Route exact path="/reports" component={Reports} />
                     <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/rates" component={Rates} />
                 </Switch>
             </HashRouter>
             </PersistGate>

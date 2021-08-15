@@ -1,5 +1,5 @@
 import React from 'react'
-import {Nav,Navbar,Col,Row,Container,NavDropdown} from 'react-bootstrap'
+import {Nav,Navbar,Col,Row,Container} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import Logo from '../imgs/logo.jpg'
 import { FaHouseDamage } from 'react-icons/fa'
@@ -28,10 +28,7 @@ export default function Navbars(){
             <Link to="/driver" style={hidepage2()} className="nav-link">Driver</Link>
             <Link to="/jobs" style={hidepage2()} className="nav-link">Jobs</Link>
 
-            <NavDropdown title="Rates" style={hidepage()} id="basic-nav-dropdown" alignRight>
-                    <NavDropdown.Item to="/fuelrates">Fuel</NavDropdown.Item>
-                    <NavDropdown.Item to="/transportersrates">Transporters</NavDropdown.Item>
-            </NavDropdown>
+            <Link to="/rates" style={hidepage()} className="nav-link">Rates</Link>
 
             <Link to="/waybills"  style={hidepage()} className="nav-link">Waybills</Link>
 
