@@ -51,7 +51,7 @@ export default function useDriverlogic(){
           const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/adddrivers/`,{...driver,...creator},config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
-            
+            DriversData.current()
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -85,7 +85,7 @@ export default function useDriverlogic(){
           const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/editdrivers/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            
+            DriversData.current()
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -113,7 +113,7 @@ export default function useDriverlogic(){
         try{
          await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletedrivers/`+id)
          
-         
+         DriversData.current()
         }
         catch(err){
           console.log(err.message)

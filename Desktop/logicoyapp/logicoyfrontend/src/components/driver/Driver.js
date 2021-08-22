@@ -138,7 +138,9 @@ export default function Driver(){
         obs = Object.values(dat)
     }
  
-    outputresult = Object.values(obs).map((v,i) => {
+    let i=0
+    outputresult = Object.values(obs).map((v) => {
+        i++
         return (
             <Row key={v._id}   className="border p-2">
             <Col md={9} xs={12}>
@@ -147,7 +149,7 @@ export default function Driver(){
                 e.preventDefault()
                 driverdetails(v.dcontact)
             }}>
-            {i+1}. {v.driver}
+            {i}. {v.driver}
             </Link>
             </Col>
 

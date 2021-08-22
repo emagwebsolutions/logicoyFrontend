@@ -49,7 +49,7 @@ export default function useUserslogic(){
           const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/register/`,user,config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            
+             UsersDatas.current()
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -67,10 +67,42 @@ export default function useUserslogic(){
   ----------------------------------*/
 
 
+
+  /*----------------------------------
+  *BEGIN EDIT PASSWORD
+  ----------------------------------*/
+  const editpassword = async (obj)=>{
+    const config = {
+      header:{
+        "Content-Type": "application/json"
+      }
+    }
+    try{
+      const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/editpassword/`,obj,config)
+      if(data.success){
+        setErr(<Error message={data.mess} bgcolor="success" />)
+         UsersDatas.current()
+      }
+      else{
+        setErr(<Error message={data.mess} bgcolor="danger" />)
+      }
+    }
+    catch(err){
+      console.log(err.message)
+    }
+  setTimeout(()=>{
+    setErr(" ")
+  },4000)
+}
+/*----------------------------------
+*END EDIT PASSWORD
+----------------------------------*/
+
+
   /*----------------------------------
   *Start EDIT USERS
   ----------------------------------*/
-  const editUser = async (obj,setErr)=>{
+  const editUser = async (obj)=>{
         const config = {
           header:{
             "Content-Type": "application/json"
@@ -80,7 +112,7 @@ export default function useUserslogic(){
           const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/edituser`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            
+             UsersDatas.current()
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -103,7 +135,7 @@ export default function useUserslogic(){
           const deleteUser = async ()=>{
             try{
              await axios.delete(`${process.env.REACT_APP_URL}/api/public/deleteuser/`+id)
-             
+              UsersDatas.current()
             }
             catch(err){
               console.log(err.message)
@@ -119,5 +151,5 @@ export default function useUserslogic(){
   *End DELETE USER
   ----------------------------------*/
   
-  return {err,registerUser,deleteusers,editUser}
+  return {err,registerUser,deleteusers,editUser,editpassword}
 }

@@ -57,12 +57,14 @@ export default function Approvedwaybills(){
         obs = Object.values(jobs)
     }
 
-  const waybills = Object.values(obs).map((v,i) => {
-
+let i=0
+  const waybills = Object.values(obs).map((v) => {
+      
     if(v.approved === 'Yes'){ 
-      return (
+        i++
+      return ( 
         <tr key={v._id}>
-        <td>{i + 1}</td>
+        <td>{i}</td>
         <td>{formatDate(v.date)}</td>
         <td>{v.fullname}</td>
         <td>{v.driver}</td>
@@ -116,7 +118,7 @@ export default function Approvedwaybills(){
             <tr>
                 <th>#</th>
                 <th>Date</th>
-                <th>Client's Name</th>
+                <th>Cargo Owner</th>
                 <th>Driver</th>
                 <th>Action</th>
             </tr>

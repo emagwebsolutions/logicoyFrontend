@@ -98,8 +98,8 @@ export default function ViewJob(props) {
             <Col md={6} xs={12}>
 
               <Form.Group className="mb-3">
-                <Form.Label className="flabl">Client's Name</Form.Label>
-                <Form.Control defaultValue={v.fullname} name="fullname" onChange={onchange} className="finpt" type="text" placeholder="Client's Name" />
+                <Form.Label className="flabl">Cargo Owner Name</Form.Label>
+                <Form.Control defaultValue={v.fullname} name="fullname" onChange={onchange} className="finpt" type="text" placeholder="Cargo Owner Name" />
               </Form.Group>
 
               <Form.Group className="mb-3">

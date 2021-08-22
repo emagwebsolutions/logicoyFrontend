@@ -23,7 +23,7 @@ export default function Dashboard({history}){
                     Authorization: `Bearer ${localStorage.getItem('userToken')}`
                 }
             }
-            const {data} = await axios.get("http://localhost:8080/api/private/authorize/",config)
+            const {data} = await axios.get(`${process.env.REACT_APP_URL}/api/private/authorize/`,config)
             if(!data.success){
                 localStorage.setItem("userToken", "")
                 history.push("/")

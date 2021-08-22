@@ -1,7 +1,7 @@
 import React from 'react'
 import {Tabs,Tab,Col,Container,Row} from 'react-bootstrap'
 import Trucksinfo from './Trucksinfo'
-import Waybills from './Waybills'
+import Waybillsx from './Waybillsx'
 
 export default function Transtransaction(props){
     return (
@@ -15,7 +15,7 @@ export default function Transtransaction(props){
 
         <Tabs defaultActiveKey="Waybills" id="uncontrolled-tab-example" className="mb-3">
         <Tab eventKey="Waybills"  title="Waybills">
-            <Waybills PHONE={props.PHONENUM} />
+        <Waybillsx PHONE={props.PHONENUM} />
         </Tab>
 
         <Tab eventKey="Trucks"  title="Trucks">

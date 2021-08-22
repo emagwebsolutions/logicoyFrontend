@@ -15,12 +15,14 @@ export default function Waybillsx(props){
   const job = useSelector((state)=> state.jobs.alljobs)
   const jobs = {...job}
 
-
-const waybills = Object.values(jobs).map((v,i) => {
-    if(props.PHONE === v.dcontact){
+let i=0
+const waybills = Object.values(jobs).map((v) => {
+  
+    if( (props.PHONE === v.tcontact) || (props.PHONE === v.dcontact)){
+      i++
       return (
         <tr key={v._id}>
-        <td>{i + 1}</td>
+        <td>{i}</td>
         <td>{formatDate(v.date)}</td>
         <td>{v.fullname}</td>
         <td>{v.driver}</td>
@@ -44,7 +46,7 @@ const waybills = Object.values(jobs).map((v,i) => {
               <tr>
                 <th>#</th>
                 <th>Date</th>
-                <th>Client's Name</th>
+                <th>Cargo Owner</th>
                 <th>Driver</th>
                 <th>Destination</th>
                 <th>Fuel</th>

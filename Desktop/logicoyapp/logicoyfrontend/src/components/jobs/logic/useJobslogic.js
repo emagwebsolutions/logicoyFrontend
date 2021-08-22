@@ -51,7 +51,7 @@ export default function useJobslogic(){
           
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
-            
+            JobsData.current()
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -82,7 +82,7 @@ export default function useJobslogic(){
           const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/editjobs/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            
+            JobsData.current()
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -106,8 +106,7 @@ export default function useJobslogic(){
       const deletejob = async ()=>{
         try{
          await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletejobs/`+id)
-         setErr("deleted")
-         
+         JobsData.current()
         }
         catch(err){
           console.log(err.message)

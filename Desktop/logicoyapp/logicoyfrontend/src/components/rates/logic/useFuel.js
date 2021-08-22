@@ -39,7 +39,6 @@ export default function useFuel(){
   *Start REGISTER Fuel
   ----------------------------------*/
   const addfuelrate = async (rate)=>{
-    const {creator} = curuser()
         const config = {
           header:{
             "Content-Type": "application/json"
@@ -49,7 +48,7 @@ export default function useFuel(){
           const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/addfuelrate/`,rate,config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
-            
+            Fueldata.current()
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -81,6 +80,7 @@ export default function useFuel(){
           const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/editfuelrate/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
+            Fueldata.current()
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -107,6 +107,7 @@ export default function useFuel(){
       const deleteFuelrate = async ()=>{
         try{
          await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletefuelrate/`+id)
+         Fueldata.current()
         }
         catch(err){
           console.log(err.message)

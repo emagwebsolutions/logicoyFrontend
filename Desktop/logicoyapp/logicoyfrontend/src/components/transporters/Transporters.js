@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import Navbars from '../Navbars'
 import Footer from '../Footer'
-import {Container,Row,Col} from 'react-bootstrap'
+import {Container,Row,Col,Table} from 'react-bootstrap'
 import List from '../shared/List'
 import Details from '../shared/Details'
 import Transtransaction from '../shared/Transtransaction'
@@ -97,6 +97,11 @@ export default function Transporters(){
             return (
                  <React.Fragment  key={v._id}>
 
+            
+                <Table>
+                <tr>
+                <td>
+
                 <tr>
                 <td style={{width:"30%"}}>Transporter:</td>
                 <td>{v.transporter}</td>
@@ -104,37 +109,39 @@ export default function Transporters(){
 
 
                 <tr>
-                <td style={{width:"30%"}}>Contact Person One:</td>
+                <td style={{width:"30%"}}>Person 1:</td>
                 <td>{v.contactp}</td>
                 </tr>
+
                 <tr>
-                <td>Contact One:</td>
+                <td>Contact 1:</td>
                 <td>{v.tcontact}</td>
                 </tr>
 
-
                 <tr>
-                <td style={{width:"30%"}}>Contact Person Two:</td>
+                <td style={{width:"30%"}}>Person 2:</td>
                 <td>{v.contactptwo}</td>
                 </tr>
+
                 <tr>
-                <td>Contact Two:</td>
+                <td>Contact 2:</td>
                 <td>{v.tcontacttwo}</td>
                 </tr>
 
+                </td>
+
+
+                <td>
 
                 <tr>
-                <td style={{width:"30%"}}>Contact Person Three:</td>
+                <td style={{width:"30%"}}>Person 3:</td>
                 <td>{v.contactpthree}</td>
                 </tr>
+
                 <tr>
-                <td>Contact Three:</td>
+                <td>Contact 3:</td>
                 <td>{v.tcontactthree}</td>
                 </tr>
-
-
-
-
 
                 <tr>
                 <td>Email:</td>
@@ -142,9 +149,17 @@ export default function Transporters(){
                 </tr>
 
                 <tr>
-                <td>Total Trucks:</td>
+                <td>Trucks:</td>
                 <td>{tot.length}</td>
                 </tr>
+                
+                </td>
+                </tr>
+                </Table>
+
+
+       
+
 
 
                 </React.Fragment>
@@ -172,7 +187,9 @@ export default function Transporters(){
         obs = Object.values(dat)
     }
  
-    outputresult = Object.values(obs).map((v,i) => {
+    let i=0
+    outputresult = Object.values(obs).map((v) => {
+        i++
         return (
             <Row key={v._id}   className="border p-2">
             <Col md={9} xs={12}>
@@ -181,7 +198,7 @@ export default function Transporters(){
                 e.preventDefault()
                 transporterdetails(v.tcontact)
             }}>
-            {i+1}. {v.transporter}
+            {i}. {v.transporter}
             </Link>
             </Col>
 

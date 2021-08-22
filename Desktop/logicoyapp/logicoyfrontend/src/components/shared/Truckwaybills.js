@@ -14,12 +14,13 @@ export default function Truckwaybills(props){
 
 
 
-
-const waybills = Object.values(jobs).map((v,i) => {
+let i =0
+const waybills = Object.values(jobs).map((v) => {
+  i++
     if(props.TRUCKNUM === v.trucknumber){
       return (
         <tr key={v._id}>
-        <td>{i + 1}</td>
+        <td>{i}</td>
         <td>{formatDate(v.date)}</td>
         <td>{v.fullname}</td>
         <td>{v.driver}</td>
@@ -47,7 +48,7 @@ const waybills = Object.values(jobs).map((v,i) => {
               <tr>
                 <th>#</th>
                 <th>Date</th>
-                <th>Client's Name</th>
+                <th>Cargo Owner </th>
                 <th>Driver</th>
                 <th>Destination</th>
                 <th>Fuel</th>

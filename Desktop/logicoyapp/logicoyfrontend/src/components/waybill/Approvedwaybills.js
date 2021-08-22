@@ -1,6 +1,6 @@
 import React, { useReducer,useState} from 'react'
-import { Form, Col, Row, Modal, Button } from 'react-bootstrap'
-import useJobslogic from './logic/useJobslogic'
+import { Form, Col, Row, Modal, Button,Table } from 'react-bootstrap'
+import useWaybilllogic from './logic/useWaybilllogic'
 import {useSelector} from 'react-redux'
 import DateFormats from '../DateFormats'
 
@@ -11,16 +11,15 @@ import Ownereditlist from '../shared/Ownereditlist'
 import Truckeditlist from '../shared/Truckeditlist'
 
 
-
 function reducer(state, action) {
   return { ...state, [action.name]: action.value }
 }
 
 
-export default function JobsForm(props) {
+export default function Approvedwaybills(props) {
   const [state, dispatch] = useReducer(reducer, {})
   const [loaded,setloaded] = useState("")
-  const { editjob, err } = useJobslogic()
+  const { editwaybill, err } = useWaybilllogic()
   const [trns,setrans] = useState("")
   const [drv,setdrv] = useState("")
 
@@ -31,6 +30,9 @@ export default function JobsForm(props) {
    const {ymd} = DateFormats()
    var v = { ...props.output }
 
+   const totamnt = v.trans_cost - v.fuel_cost
+   const pay = state.payment || v.payment
+   const blnce = totamnt - pay || 0
 
   const drvs = {
     fullname: state.fullname || v.fullname,
@@ -46,15 +48,13 @@ export default function JobsForm(props) {
     type2: state.type2 || v.type2,
     fuelstation: state.fuelstation  || v.fuelstation,
     date: state.date || v.date,
-    creatorid: state.creatorid || v.creatorid,
-    createdby: state.createdby || v.createdby,
-    creatorphone: state.creatorphone || v.creatorphone,
     customer: state.customer || v.customer,
+    payment: state.payment || v.payment,
     id: v._id
   }
 
-  function editjobs() {
-    editjob(drvs)
+  function editwybill() {
+    editwaybill(drvs)
   }
 
 
@@ -102,7 +102,7 @@ export default function JobsForm(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3><strong>New Job</strong></h3>
+            <h3><strong>WAYBILL </strong>(Approved by: {v.createdby})</h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalpadding">
@@ -134,12 +134,11 @@ export default function JobsForm(props) {
               </Form.Group>
       
                 <Destinationeditlist onchangex={onchange} v={v} />
-              
+            
 
             </Col>
             <Col md={6} xs={12}>
             <Truckeditlist onchangex={onchange} v={v} dta={dta} />
-
             <Drivereditlist onchangex={onchange} v={v} dta={dta} />
  
 
@@ -191,13 +190,47 @@ export default function JobsForm(props) {
             </Col>
           </Row>
 
+          <Row>
+            <Col xs={12} className="p-0">
+            <div className="bg-light">
+            <Table>
+
+              <thead>
+              <tr>
+              <th>Cargo Amount</th>
+              <th>Fuel Amount</th>
+              <th>Total</th>
+              <th>Payment</th>
+              <th>Balance</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr>
+              <td>{v.trans_cost}</td>
+              <td>{v.fuel_cost}</td>
+              <td>{totamnt}</td>
+              <td style={{width: "100px"}}>
+                <Form.Group> 
+                <Form.Control type="number" value={pay} name="payment" onChange={onchange} />
+                </Form.Group> 
+              </td>
+              <td>{blnce}</td>
+              </tr>
+              </tbody>
+ 
+            </Table>
+            </div>
+            </Col>
+          </Row>
+
           <h2>{err}</h2>
 
         </Modal.Body>
         <Modal.Footer>
 
           <Button onClick={props.onHide} className="btn btn-danger btn-md">Close</Button>
-          <Button onClick={editjobs} className="btn btn-success btn-md">Save </Button>
+          <Button onClick={editwybill} className="btn btn-success btn-md">Save </Button>
         </Modal.Footer>
 
       </Modal>

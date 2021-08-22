@@ -7,9 +7,6 @@ import {fetchalltransporters} from '../../redux/actions/actions'
 export default function useTranslogic(){
   const [err,setErr] = useState("")
   const dispatch = useDispatch()
-
-
-
     
 
         /*-------------------------------
@@ -56,7 +53,7 @@ export default function useTranslogic(){
           const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/addtransporters/`,{...driver,...creator},config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)  
-            
+            TranspData.current()
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -90,7 +87,7 @@ export default function useTranslogic(){
           const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/edittransporters/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
-            
+            TranspData.current()
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -116,7 +113,7 @@ export default function useTranslogic(){
       const deletetransp = async ()=>{
         try{
          await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletetransporters/`+id)
-         
+         TranspData.current()
         }
         catch(err){
           console.log(err.message)

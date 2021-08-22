@@ -1,53 +1,50 @@
 import React,{useState} from 'react'
 import DateFormats from '../DateFormats'
-import useCargo from './logic/useCargo'
+import useFuel from './logic/useFuel'
 import {FaTrashAlt, FaRegEdit} from 'react-icons/fa'
-import CargoEditForm from './CargoEditForm'
+import FuelEditForm from './FuelEditForm'
 import {Link} from 'react-router-dom'
 
-
-export default function Cargotables({data}){
+export default function Fueltables({data}){
     const {formatDate} = DateFormats()
-    const {deletecargorate} = useCargo()
+    const {deletefuelrate} = useFuel()
     //States
     const [modalshow, setModalShow] = React.useState(false);
-    const [cargodetails,setcargodetails] = useState()
+    const [fueldetails,setfueldetails] = useState()
 
-  
-    /*-----------------------------
+      /*-----------------------------
       START JOBS FORM MODAL
     -----------------------------*/
   
     //Modal show
     function setmodalShow(id){
-      if(data){ 
-      const dd = Object.values(data).filter(v => {
-          if(v._id === id){
-              return v
-          }
-          else{
-              return ''
-          }
-      })
-       setcargodetails({...dd[0]})
+        if(data){ 
+        const dd = Object.values(data).filter(v => {
+            if(v._id === id){
+                return v
+            }
+            else{
+                return ''
+            }
+        })
+         setfueldetails({...dd[0]})
+        }
+    
+        setModalShow(true)
       }
-  
-      setModalShow(true)
-    }
-  
-    //Modal Hide
-    function setmodalhide(){
-        setModalShow(false)
-    }
-    /*-----------------------------
-    END JOBS FORM MODAL
-    -----------------------------*/
-  
-    //Delete record
-    function deltcargo(id){
-        deletecargorate(id)
-    }
-  
+    
+      //Modal Hide
+      function setmodalhide(){
+          setModalShow(false)
+      }
+      /*-----------------------------
+      END JOBS FORM MODAL
+      -----------------------------*/
+    
+      //Delete record
+      function deletefuel(id){
+          deletefuelrate(id)
+      }
 
     let i=0
     return (
@@ -59,15 +56,14 @@ export default function Cargotables({data}){
                 <tr>
                 <td>{i}</td>
                 <td>{formatDate(v.createdAt)}</td>
-                <td>{v.owner}</td>
-                <td>{v.destination}</td>
+                <td>{v.fuelstation}</td>
                 <td>{v.rate}</td>
                 <td>
                 {/* DELETE */}
                 <Link to="/#"  
                 onClick={(e)=>{
                 e.preventDefault()
-                deltcargo(v._id)
+                deletefuel(v._id)
                 }} 
                 className="cursor">
                 <FaTrashAlt className="text-danger mr-3 smbtn" />
@@ -83,12 +79,14 @@ export default function Cargotables({data}){
                 </Link>
 
                 </td>
+            
                 </tr>
             )
         })
         }
-        <CargoEditForm
-        output={cargodetails}
+
+        <FuelEditForm
+        output={fueldetails}
         onHide={setmodalhide} 
         show ={modalshow} />
         </>

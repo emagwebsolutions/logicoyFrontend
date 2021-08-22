@@ -7,36 +7,49 @@ import useReports from './logic/useReports'
 
 
 export default function Linechart(){
-    const {ymd} = DateFormats()
+    const {ym} = DateFormats()
     const {chartdata} = useReports()
 
-    const start = moment().startOf('week')
+    const start = moment().startOf('year')
 
     //Start date
     const std = new Date(start)
-    const day = std.getDate()
-    const mo = day+1
-    const tu = day+2
-    const we = day+3
-    const th = day+4
-    const fr = day+5
-   
+    const mnth = std.getMonth()
+    const jan = mnth
+    const feb = mnth+1
+    const mar = mnth+2
+    const apr = mnth+3
+    const may = mnth+4
+    const jun = mnth+5
+    const jul = mnth+6
+    const aug = mnth+7
+    const sep = mnth+8
+    const oct = mnth+9
+    const nov = mnth+10
+    const dec = mnth+11
 
     const resp = {...chartdata}
     function gettotal(d){
         const nd = new Date()
-        nd.setDate(d)
-        const dte = ymd(nd)
+        nd.setMonth(d)
+        const dte = ym(nd)
         const rex = Object.values(resp).filter(v => {
-            return ymd(v.date) === dte
+            return ym(v.date) === dte
         }).length
         return rex
     }
-    const mon = gettotal(mo)
-    const tue = gettotal(tu)
-    const wed = gettotal(we)
-    const thr = gettotal(th)
-    const fri = gettotal(fr)
+    const ja = gettotal(jan)
+    const fe = gettotal(feb)
+    const ma = gettotal(mar)
+    const ap = gettotal(apr)
+    const mai = gettotal(may)
+    const ju = gettotal(jun)
+    const july = gettotal(jul)
+    const au = gettotal(aug)
+    const se = gettotal(sep)
+    const oc = gettotal(oct)
+    const no = gettotal(nov)
+    const de = gettotal(dec)
 
 
     return (
@@ -49,7 +62,7 @@ export default function Linechart(){
                 datasets: [
                     {
                         label: 'THIS YEAR\'S TRIPS',
-                        data: [mon,tue,wed,thr,fri],
+                        data: [ja,fe,ma,ap,mai,ju,july,au,se,oc,no,de],
                         backgroundColor: [    
                             'rgba(255,99,132,0.2)', 
                             'rgba(54,162,235,0.2)', 

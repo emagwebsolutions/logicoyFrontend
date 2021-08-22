@@ -13,6 +13,14 @@ export default function DateFormats(){
         return `${year}-${mnt}-${dy}`
     }
 
+    function ym(date){
+        const d = new Date(date)
+        const year =  d.getFullYear()
+        const month = d.getMonth()+1
+        const mnt = month < 10? "0"+month : month
+        return `${year}-${mnt}`
+    }
+
     function months(m){
         var month
         switch(m){
@@ -70,5 +78,5 @@ export default function DateFormats(){
         return date;
     };
 
-    return {ymd,formatDate,months}
+    return {ymd,formatDate,months,ym}
 }

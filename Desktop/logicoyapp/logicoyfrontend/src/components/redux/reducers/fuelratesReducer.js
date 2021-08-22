@@ -4,7 +4,7 @@ export default function fuelratesReducer(state = {}, {type,payload}){
     
     switch(type){
         case constants.FETCH_ALL_FUELRATES:
-            return  {...state, fuelrates: payload}
+            return  {...state, fuel: payload}
         default:
             return state
     }

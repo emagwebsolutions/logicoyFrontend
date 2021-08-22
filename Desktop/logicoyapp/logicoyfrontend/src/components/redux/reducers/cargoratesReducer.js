@@ -4,7 +4,7 @@ export default function cargoratesReducer(state = {}, {type,payload}){
     
     switch(type){
         case constants.FETCH_ALL_CARGORATES:
-            return  {...state, cargorates: payload}
+            return  {...state, cargos: payload}
         default:
             return state
     }

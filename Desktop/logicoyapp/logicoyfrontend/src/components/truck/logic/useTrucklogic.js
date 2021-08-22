@@ -51,7 +51,8 @@ export default function useTrucklogic(){
         try{
           const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/addtrucks/`,{...Truck,...creator},config)
           if(data.success){
-            setErr(<Error message={data.mess} bgcolor="success" />)   
+            setErr(<Error message={data.mess} bgcolor="success" />) 
+            TrucksData.current()  
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -89,6 +90,7 @@ export default function useTrucklogic(){
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
+            TrucksData.current()
           }
           setTimeout(()=> setErr(""),4000)
         }
@@ -110,6 +112,7 @@ export default function useTrucklogic(){
       const deleteTruck = async ()=>{
         try{
          await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletetrucks/`+id)
+         TrucksData.current()
         }
         catch(err){
           console.log(err.message)

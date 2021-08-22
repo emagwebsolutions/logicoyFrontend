@@ -1,67 +1,12 @@
-import React,{useReducer,useState} from 'react'
-import {Table} from 'react-bootstrap'
-import {Row,Col,Form,Button} from 'react-bootstrap'
-import useCargo from './logic/useCargo'
-import {useSelector} from 'react-redux'
-import useSearchHook from '../useSearchHook'
-import Cargotables from './Cargotables'
+import React from 'react' 
+import {Form} from 'react-bootstrap'
 
-
-
-function reducer(state,action){
-    return {...state,[action.name] : action.value}
-}
-
-export default function Cargorates(){
-    const [type,settype] = useState("")
-    const {addcargorate,err} = useCargo()
-    const [state,dispatch] = useReducer(reducer,{})
-    const cargodata = useSelector((state)=>state.cargorates.cargos)
-    const cargoobj = {...cargodata}
-    const {output,searchdatalist} = useSearchHook(cargodata)
-
-    const onchange = (e)=>{
-        const {name,value} = e.target
-        if(name === 'owner')
-        value.toLowerCase() === 'olam'? settype('Bags') : settype('Tonage')
-        
-        dispatch({name,value})
-    }
-
-
-    const saveCargorates = ()=>{
-        const obj = {...state,type}
-        addcargorate(obj)
-    }
-
-    const resdata = output || cargoobj
-
-
+const Destinationlist = ({onchangex})=>{
     return (
         <>
-        <Row>
-            <Col xs={12} md={3}>
-            <Form.Group className="mb-3">
-            <Form.Label className="flabl">Cargo Owner</Form.Label>
-            <Form.Control  name="owner" onChange = {onchange} as="select" className="mb-3">
-            <option hidden>Select Cargo Owner</option>
-            <option value="OLAM">OLAM</option>
-            <option value="WILMAR">WILMAR</option>
-            </Form.Control>
-            </Form.Group>
-            </Col>
-
-            <Col xs={12} md={2}>
-            <Form.Group className="mb-3">
-            <Form.Label className="flabl">Type</Form.Label>
-            <Form.Control  name="type" value={type || ''} onChange={onchange}  type="text"  />
-            </Form.Group>
-            </Col>
-  
-            <Col xs={12} md={3}>
             <Form.Group className="mb-3">
             <Form.Label className="flabl">Destination</Form.Label>
-            <Form.Control  name="destination" onChange = {onchange}  as="select" className="mb-3">
+            <Form.Control  name="destination" onChange = {onchangex} as="select" className="mb-3">
             <option hidden>Destination</option>
             <option value="ACCRA">ACCRA</option>
             <option value="ACHIMOTA">ACHIMOTA</option>
@@ -166,64 +111,7 @@ export default function Cargorates(){
             <option value="YIPALA">YIPALA</option>
             </Form.Control>
             </Form.Group>
-            </Col>
-
-
-            <Col xs={12} md={2}>
-            <Form.Group className="mb-3">
-            <Form.Label className="flabl">Rate</Form.Label>
-            <Form.Control name="rate" onChange = {onchange}  type="number"  />
-            </Form.Group>
-            </Col>
-
-
-            <Col xs={12} md={2}>
-                <br />
-             <Button  onClick={saveCargorates} className="mt-2 btn btn-secondary btn-md p-2">Save Rate</Button>
-             </Col>
-
-        </Row>
-
-        <h2>{err}</h2>
-
-        <br />
-
-        <Row>
-        <Col xs={12} md={6}>
-            <div className="htitle">
-            CARGO RATES
-            </div>
-        </Col>
-
-        <Col xs={12} md={6}>
-        <Form.Group>
-        <Form.Control type="text" onChange={searchdatalist}  placeholder="Search Cargo rates" />
-        </Form.Group>
-        </Col>
-
-        </Row>
-
-
-        <div className="ratestbl">
-        <Table responsive="lg" >
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Cargo Owner</th>
-                <th>Destination</th>
-                <th>Rate</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-        
-            <Cargotables data={resdata} />
-
-            </tbody>
-        </Table>
-        </div>
-  
         </>
     )
 }
+export default Destinationlist

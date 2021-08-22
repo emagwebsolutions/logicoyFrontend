@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap';
 import {FaTrashAlt, FaRegEdit} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 import useUserslogic from './logic/useUserslogic'
-import RegForm from './RegForm'
+import EditUser from './EditUser'
 
 const Tables = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -75,7 +75,7 @@ const Tables = (props) => {
         </Table>
       </div>
 
-      <RegForm show={modalShow} output={props.output} id={ids} onHide={() => setModalShow(false)}  />
+      <EditUser show={modalShow} output={props.output} id={ids} onHide={() => setModalShow(false)}  />
       </>
     )
  

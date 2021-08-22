@@ -97,7 +97,9 @@ export default function Jobs(){
         obs = Object.values(transports)
     }
  
-    outputresult = Object.values(obs).map((v,i) => {
+    let i=0
+    outputresult = Object.values(obs).map((v) => {
+        i++
         return (
             <Row key={v._id}   className="border p-2">
             <Col md={9} xs={12}>
@@ -106,7 +108,7 @@ export default function Jobs(){
                 e.preventDefault()
                 jobsdetailss(v.tcontact)
             }}>
-            {i+1}. {v.transporter}
+            {i}. {v.transporter}
             </Link>
             </Col>
 

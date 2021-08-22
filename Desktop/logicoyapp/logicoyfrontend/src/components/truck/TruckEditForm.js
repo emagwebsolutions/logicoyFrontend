@@ -2,6 +2,8 @@ import React,{useState,useReducer} from 'react'
 import {Form,Col,Row,Modal,Button} from 'react-bootstrap'
 import useTrucklogic from './logic/useTrucklogic'
 import {useSelector} from 'react-redux'
+import Transporterseditlist from '../shared/Transporterseditlist'
+
 function reducer(state,action){
   return {...state, [action.name] : action.value}
 }
@@ -70,26 +72,13 @@ export default function TruckForm(props){
 
             <Col md={6} xs={12}>
 
-            <Form.Group className="mb-3">
-            <Form.Label className="flabl">Transporter</Form.Label>
-            <Form.Control defaultValue={v.transporter} name="transporter" onChange = {onchange} as="select" className="mb-3">
-            {
-              Object.values(dvax).map(v => {
-                return <option key={v._id} value={v.transporter}>{v.transporter}</option>
-              })
-            }
-            </Form.Control>
-            </Form.Group>
-
+            <Transporterseditlist dvax={dvax} v={v} onchangex={onchange} />
 
             <Form.Group className="mb-3" >
             <Form.Label className="flabl">Transporter Contact</Form.Label>
-            <Form.Control value={trns? trns.tcontact : v.tcontact}
+            <Form.Control value={trns.tcontact || v.tcontact}
             name="tcontact" onChange = {onchange}  className="finpt" disabled type="text" placeholder="Transporter Contact" />
             </Form.Group>
-
-
-  
 
             </Col>
         </Row>

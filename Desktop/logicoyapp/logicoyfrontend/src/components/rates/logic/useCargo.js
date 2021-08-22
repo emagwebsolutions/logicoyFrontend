@@ -48,7 +48,7 @@ export default function useCargo(){
           const {data} = await axios.post(`${process.env.REACT_APP_URL}/api/public/addcargorate/`,rate,config)
           if(data.success){
             setErr(<Error message={data.mess} bgcolor="success" />)   
-            
+            CargoData.current()
           }
           else{
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -80,6 +80,7 @@ export default function useCargo(){
           const {data} = await axios.put(`${process.env.REACT_APP_URL}/api/public/editcargorate/`,obj,config)
           if(data.success === true){
             setErr(<Error message={data.mess} bgcolor="success" />)
+            CargoData.current()
           }
           if(data.success === false){
             setErr(<Error message={data.mess} bgcolor="danger" />)
@@ -106,6 +107,7 @@ export default function useCargo(){
       const deleteCargorate = async ()=>{
         try{
          await axios.delete(`${process.env.REACT_APP_URL}/api/public/deletecargorate/`+id)
+         CargoData.current()
         }
         catch(err){
           console.log(err.message)

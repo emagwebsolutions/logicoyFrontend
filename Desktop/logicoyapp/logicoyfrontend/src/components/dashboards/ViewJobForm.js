@@ -1,14 +1,21 @@
-import React from 'react'
-import { Form, Col, Row, Modal} from 'react-bootstrap'
+import React  from 'react'
+import { Form, Col, Row, Modal } from 'react-bootstrap'
 import DateFormats from '../DateFormats'
 
 
 export default function ViewJobForm(props) {
 
+
+
    //Get date formats
    const {ymd} = DateFormats()
    var v = { ...props.output }
 
+  
+  let loadtype =''
+  if(v.fullname){
+      loadtype = v.fullname.toLowerCase() ==='olam'? 'Bags' : 'Tonage'
+  }
 
 
   return (
@@ -28,16 +35,17 @@ export default function ViewJobForm(props) {
 
           <Row>
             <Col md={6} xs={12}>
+      
+            <Form.Group>
+            <Form.Label>Cargo Owner</Form.Label>
+            <Form.Control value={v.fullname} />
+            </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label className="flabl">Cargo owner</Form.Label>
-                <Form.Control value={v.fullname} name="fullname"  className="finpt" type="text" placeholder="Client's Name" />
-              </Form.Group>
+            <Form.Group className="mb-3">
+            <Form.Label className="flabl">Customer (Optional)</Form.Label>
+            <Form.Control  value={v.customer} name="customer" onChange = {onchange}  as="textarea" rows="3" placeholder="You can enter more customer names seperated by commas e.g Joe,Edward,Osei" />
+            </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label className="flabl">Customer's Name</Form.Label>
-                <Form.Control value={v.customer} name="fullname"  className="finpt" type="text" placeholder="Client's Name" />
-              </Form.Group>
 
               <Form.Group className="mb-3">
                 <Form.Label className="flabl">Transporter</Form.Label>
@@ -50,29 +58,29 @@ export default function ViewJobForm(props) {
               </Form.Group>
 
               <Form.Group className="mb-3" >
-                <Form.Label className="flabl">Bags/Tonnage Loaded</Form.Label>
+              <Form.Label className="flabl">{loadtype} loaded</Form.Label>
                 <Form.Control value={v.bags} name="bags"  className="finpt" type="number" placeholder="Bags/Tonnage Loaded" />
               </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label className="flabl">Destination</Form.Label>
-                <Form.Control value={v.destination} name="destination"   className="mb-3">
-                </Form.Control>
+              <Form.Group>
+              <Form.Label>Destination</Form.Label>
+              <Form.Control value={v.destination} />
               </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label className="flabl">Truck Number</Form.Label>
-                <Form.Control value={v.trucknumber} name="trucknumber"   className="mb-3">
-                </Form.Control>
-              </Form.Group>
+        
+   
 
             </Col>
             <Col md={6} xs={12}>
 
-              <Form.Group className="mb-3">
-                <Form.Label className="flabl">Driver's Name</Form.Label>
-                <Form.Control name="driver" value={v.driver}   className="mb-3 finpt">
-                </Form.Control>
+              <Form.Group>
+              <Form.Label>Truck Number</Form.Label>
+              <Form.Control value={v.trucknumber} />
+              </Form.Group>
+
+            <Form.Group className="mb-3" >
+                <Form.Label className="flabl">Driver</Form.Label>
+                <Form.Control   value={v.driver}  name="dcontact"  className="finpt" type="text" placeholder="Driver's Contact" />
               </Form.Group>
 
               <Form.Group className="mb-3" >
@@ -81,19 +89,30 @@ export default function ViewJobForm(props) {
               </Form.Group>
 
               <Form.Group className="mb-3" >
-                <Form.Label className="flabl">Driver License Number</Form.Label>
+                <Form.Label className="flabl">Driver License Number (Optional)</Form.Label>
                 <Form.Control value={v.license}  name="license"  className="finpt" type="text" placeholder="Driver License Number" />
               </Form.Group>
 
               <Form.Group className="mb-3" >
                 <Form.Label className="flabl">Fuel (Optional)</Form.Label>
-                <Form.Control value={v.fuel} name="fuel"  className="finpt" type="number" placeholder="Fuel" />
+
+                <div class="row">
+                <div md={6}>
+                <Form.Control value={v.fuel} name="fuel"  className="finpt" type="text" placeholder="Fuel" />
+                </div>
+
+                <div md={6}>
+                <Form.Control name="type2"  value={v.type2} type="text" />
+    
+                </div>
+              
+                </div>
+
               </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label className="flabl">Fuel Station (Optional)</Form.Label>
-                <Form.Control value={v.fuelstation} name="fuelstation"  className="mb-3">
-                </Form.Control>
+              <Form.Group>
+              <Form.Label>Fuel Station</Form.Label>
+              <Form.Control value={v.fuelstation} />
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -104,15 +123,14 @@ export default function ViewJobForm(props) {
                   type="text" className="finpt" placeholder="Date"
                 />
               </Form.Group>
-
-   
-
             </Col>
           </Row>
 
+  
 
         </Modal.Body>
         <Modal.Footer>
+
 
         </Modal.Footer>
 

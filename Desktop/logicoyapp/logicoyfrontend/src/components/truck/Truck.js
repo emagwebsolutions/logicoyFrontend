@@ -120,7 +120,9 @@ export default function Truck(){
         obs = Object.values(dat)
     }
  
-    outputresult = Object.values(obs).map((v,i) => {
+    let i=0
+    outputresult = Object.values(obs).map((v) => {
+        i++
         return (
             <Row key={v._id}   className="border p-2">
             <Col md={9} xs={12}>
@@ -129,7 +131,7 @@ export default function Truck(){
                 e.preventDefault()
                 Truckdetails(v.trucknumber)
             }}>
-            {i+1}. {v.trucknumber}
+            {i}. {v.trucknumber}
             </Link>
             </Col>
 
